@@ -1,7 +1,7 @@
 # CLAUDE.md
 
-Bot arena game. Rules: `VISION.md`, `LANGUAGE.md`. Build plan: `arena/PLAN.md` (steps 1-19). Code lives in `arena/`.
-`designs/`, `lang/`, `judging/`, `archive/` are history - read-only, not specs.
+Bot arena game. Rules: `VISION.md`, `LANGUAGE.md`. Architecture and dev rules: `arena/PLAN.md` (sections 0-5).
+Tuning evidence: `arena/TUNING.md`. Code lives in `arena/`.
 
 ## Implementing the plan
 
@@ -18,6 +18,6 @@ The main session orchestrates, it does not write production code itself.
 - **Loop:** on defects, send them to a new Sonnet implementer round (include the original brief + defects). Max 3
   rounds, then stop and report to the user.
 - Opus is used only for judging. Sonnet does all implementation, including fixes.
-- After a step passes: mark it `[DONE]` in `arena/PLAN.md`, draft a commit message, and **wait for the user's consent
+- After a step passes: remove it from `arena/PLAN.md` (fold any lasting rule into sections 0-5), draft a commit message, and **wait for the user's consent
   before committing**. Never commit on your own.
 - Gaps in the spec: use the defaults table in `arena/PLAN.md` section 5; anything not covered there - ask the user.

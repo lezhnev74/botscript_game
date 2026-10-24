@@ -3,8 +3,7 @@
 One TV, up to 10 coworkers' bots, programmed in a tiny JS, mostly written by AI. Bots **scan, think, act**.
 The TV x-rays every scan, so the room reads each program by watching it play.
 
-Language spec: `LANGUAGE.md` (BOTSCRIPT, a tiny JS). Previous: `archive/LANGUAGE-v0-scanloop.md`. History: `archive/VISION-v0.md` (first synthesis of 8 designs + judges,
-`designs/`, `judging/`), `archive/RULEBOOK-v0.md` (previous language draft), `lang/` (6 language drafts).
+Language spec: `LANGUAGE.md` (BOTSCRIPT, a tiny JS).
 
 Status tags: **[agreed]** = owner decision; **[default]** = accepted for now, may change after simulations;
 **[later]** = decided to defer.
@@ -103,7 +102,7 @@ Status tags: **[agreed]** = owner decision; **[default]** = accepted for now, ma
 | Event | Points |
 |---|---|
 | Kill | +3 (repeat kills on the same victim +1) |
-| Coin | +1 (tuned in step 28 over 1, 2, 3: higher values let foraging win every match), plus 1 HP and a bonus shot; one spawns every 50 beats (`coin_every`, tuned in step 28: rarer coins keep any one role from topping every match) |
+| Coin | +1 (tuned over 1, 2, 3: higher values let foraging win every match), plus 1 HP and a bonus shot; one spawns every 50 beats (`coin_every`, tuned: rarer coins keep any one role from topping every match) |
 | Death | -1 (floor 0), bonus shots lost, respawn after 5 beats far from enemies, 2 beats shielded |
 
 ## 10. Session [default]

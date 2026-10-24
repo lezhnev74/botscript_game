@@ -79,8 +79,7 @@ make check                   # lint, tests, coverage/CRAP gate, determinism, gen
 |---|---|
 | `arena/engine` | Go server: deterministic simulation, BOTSCRIPT interpreter, HTTP/WebSocket API |
 | `arena/web` | TypeScript client: the TV view, the phone editor, admin |
-| `arena/PLAN.md` | Build plan the code was written from |
+| `arena/PLAN.md` | Architecture and development rules |
 | `arena/TUNING.md` | Simulation runs used to tune the numbers |
-| `designs/`, `lang/`, `judging/`, `archive/` | Design history: competing drafts and their reviews |
 
 The simulation is deterministic: a match replays from its seed, the programs and the edit log.
