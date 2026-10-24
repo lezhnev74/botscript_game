@@ -1,4 +1,4 @@
-// Forager: scans for coins and walks toward the one it saw, wanders to random spots when it sees none, runs when an enemy is close.
+// Forager: scans for coins and walks toward the one it saw, wanders to random spots when it sees none, runs when an enemy is close. Recipe: forager with a mode switch - run when weak (`hp`), fight when healthy and `loaded`.
 // num[0] = direction of the next look, num[1] = beat counter, num[2] = 1 + the way to a coin I saw (0 = none),
 // pin[0] = the spot I am wandering to
 function loop() {

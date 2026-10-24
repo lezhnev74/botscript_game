@@ -1,3 +1,4 @@
+// Tracker: hunter - chase the enemy you scan and guess which side it dodges to.
 // num[0] = direction I'm tracking, num[1] = sidestep I tried, num[2] = 1 if I just sidestepped from an enemy at 2, 2 = retreated, sidestep next
 function loop() {
   if (num[2] == 2) { num[2] = 0; move(pick(left(num[0]), right(num[0]))); return; }   // retreated last beat: sidestep now

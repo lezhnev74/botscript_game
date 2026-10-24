@@ -21,14 +21,14 @@
       "id": "A",
       "brain": {
         "kind": "program",
-        "src": "// num[0] = sweep direction, num[1] = passes left to hunt the shooter (-1 = sidestep pending), num[2] = shooter direction\nfunction loop() {\n  if (num[1] \u003c 0) { num[1] = 0; move(pick(left(num[0]), right(num[0]))); return; }   // retreated last beat: sidestep now\n  if (num[1] \u003e 0) { num[1]--; look(num[2]); return; }\n  num[0] = right(num[0]);\n  look(num[0]);\n}\nfunction look(d) {\n  scan(d);\n  if (bullet == 3) dodge(d);\n  else if (enemy == 3 \u0026\u0026 loaded) fire(d);\n  else if (enemy == 2) move(pick(left(d), right(d)));\n  else if (coin == 3) move(d);\n}\n// sidestep off the line d; both sides walls (a corridor): back off along it, sidestep next beat\nfunction dodge(d) {\n  if (d % 2 == 0 ? wall(x - 1, y) \u0026\u0026 wall(x + 1, y) : wall(x, y - 1) \u0026\u0026 wall(x, y + 1)) {\n    num[0] = d; num[1] = -1;\n    move(back(d));\n  } else move(pick(left(d), right(d)));\n}\nfunction onHit(from) {\n  num[1] = 0;                                 // drop a stale pending sidestep\n  dodge(from);                           // off the line first\n  num[2] = from;\n  if (num[1] \u003e= 0) num[1] = 4;\n}\nfunction onBump(from) {\n  if (loaded \u0026\u0026 chance(60)) fire(from); else move(back(from));\n}\n"
+        "src": "// Lighthouse: hunter with a mode switch - sweep and dodge, hunt the shooter for a few passes after a hit.\n// num[0] = sweep direction, num[1] = passes left to hunt the shooter (-1 = sidestep pending), num[2] = shooter direction\nfunction loop() {\n  if (num[1] \u003c 0) { num[1] = 0; move(pick(left(num[0]), right(num[0]))); return; }   // retreated last beat: sidestep now\n  if (num[1] \u003e 0) { num[1]--; look(num[2]); return; }\n  num[0] = right(num[0]);\n  look(num[0]);\n}\nfunction look(d) {\n  scan(d);\n  if (bullet == 3) dodge(d);\n  else if (enemy == 3 \u0026\u0026 loaded) fire(d);\n  else if (enemy == 2) move(pick(left(d), right(d)));\n  else if (coin == 3) move(d);\n}\n// sidestep off the line d; both sides walls (a corridor): back off along it, sidestep next beat\nfunction dodge(d) {\n  if (d % 2 == 0 ? wall(x - 1, y) \u0026\u0026 wall(x + 1, y) : wall(x, y - 1) \u0026\u0026 wall(x, y + 1)) {\n    num[0] = d; num[1] = -1;\n    move(back(d));\n  } else move(pick(left(d), right(d)));\n}\nfunction onHit(from) {\n  num[1] = 0;                                 // drop a stale pending sidestep\n  dodge(from);                           // off the line first\n  num[2] = from;\n  if (num[1] \u003e= 0) num[1] = 4;\n}\nfunction onBump(from) {\n  if (loaded \u0026\u0026 chance(60)) fire(from); else move(back(from));\n}\n"
       }
     },
     {
       "id": "B",
       "brain": {
         "kind": "program",
-        "src": "function loop() {\n  scan(pick(N, E, S, W));\n  if (enemy == 3) fire(last);\n}\n"
+        "src": "// Rookie: hunter - scan at random, shoot what is on your line.\nfunction loop() {\n  scan(pick(N, E, S, W));\n  if (enemy == 3) fire(last);\n}\n"
       }
     }
   ]

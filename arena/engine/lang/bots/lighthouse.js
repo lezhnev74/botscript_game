@@ -1,3 +1,4 @@
+// Lighthouse: hunter with a mode switch - sweep and dodge, hunt the shooter for a few passes after a hit.
 // num[0] = sweep direction, num[1] = passes left to hunt the shooter (-1 = sidestep pending), num[2] = shooter direction
 function loop() {
   if (num[1] < 0) { num[1] = 0; move(pick(left(num[0]), right(num[0]))); return; }   // retreated last beat: sidestep now

@@ -1,30 +1,29 @@
 import { describe, expect, it } from "vitest";
 import { buildPrompt, extractSections, isPrivateUrl, resolveBaseUrl } from "./prompt";
 
-const md = "# T\nintro\n## 1. One\nalpha\n## 2. Two\nbeta\n## 3. Three\ngamma\n";
+const md = "# T\nintro\n## 1. One\nalpha\n## 2. Two\nbeta\n## 9. Nine\ngamma\n";
 
 describe("extractSections", () => {
   it("keeps the numbered sections asked for, in document order", () => {
-    expect(extractSections(md, [3, 1])).toBe("## 1. One\nalpha\n\n## 3. Three\ngamma");
+    expect(extractSections(md, [9, 1])).toBe("## 1. One\nalpha\n\n## 9. Nine\ngamma");
   });
   it("skips sections that do not exist", () => {
-    expect(extractSections(md, [9])).toBe("");
+    expect(extractSections(md, [5])).toBe("");
   });
 });
 
 describe("buildPrompt", () => {
-  const docs = { language: "LANG TEXT", vision: md, examples: [{ name: "Rookie", source: "function loop() {}" }], baseUrl: "https://arena.example.com" };
+  const docs = { language: md, examples: [{ name: "Rookie", source: "function loop() {}" }], baseUrl: "https://arena.example.com" };
   const text = buildPrompt(docs);
-  it("contains the language spec verbatim", () => {
-    expect(text).toContain("LANG TEXT");
-  });
-  it("contains rule sections and the examples as code blocks", () => {
-    expect(text).toContain("gamma");
-    expect(text).not.toContain("alpha");
+  it("contains language sections 1-8 and the examples as code blocks", () => {
+    expect(text).toContain("## 1. One\nalpha");
+    expect(text).toContain("## 2. Two\nbeta");
+    expect(text).not.toContain("gamma");
+    expect(text).not.toContain("## 9.");
     expect(text).toContain("### Rookie\n```js\nfunction loop() {}\n```");
   });
-  it("orders role, spec, rules, examples, request", () => {
-    const at = ["# Your role", "LANG TEXT", "gamma", "### Rookie", "# Check your program", "# Your request"].map((s) => text.indexOf(s));
+  it("orders role, spec, examples, request", () => {
+    const at = ["# Your role", "## 1. One", "### Rookie", "# Check your program", "# Your request"].map((s) => text.indexOf(s));
     expect(at.every((n) => n >= 0)).toBe(true);
     expect(at).toEqual([...at].sort((a, b) => a - b));
   });
@@ -41,9 +40,27 @@ describe("buildPrompt", () => {
   });
 });
 
+describe("buildPrompt with sections", () => {
+  const lang = "# T\n\nintro line\n\n---\n\n" + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((n) => `## ${n}. S${n}\nbody${n}\n`).join("\n");
+  const text = buildPrompt({ language: lang, examples: [], baseUrl: "https://a.example" });
+  it("takes sections 1-8 and none of 9-13", () => {
+    for (let n = 1; n <= 8; n++) expect(text).toContain(`## ${n}. S${n}`);
+    for (let n = 9; n <= 13; n++) expect(text).not.toContain(`S${n}`);
+  });
+  it("has no vision content", () => {
+    expect(text).not.toContain("[agreed]");
+    expect(text).not.toContain("Status");
+    expect(text).not.toMatch(/# Game rules/);
+  });
+  it("keeps the intro but not the title", () => {
+    expect(text).toContain("intro line");
+    expect(text).not.toContain("# T\n");
+  });
+});
+
 describe("check section", () => {
   const section = (baseUrl: string) => {
-    const t = buildPrompt({ language: "L", vision: md, examples: [], baseUrl });
+    const t = buildPrompt({ language: "L", examples: [], baseUrl });
     return t.slice(t.indexOf("# Check your program"), t.indexOf("# Your request"));
   };
   it("gives both URLs with the base URL filled in", () => {
@@ -61,7 +78,7 @@ describe("check section", () => {
   });
   it("tells the AI to check every program, fix errors and act on warnings before the final code", () => {
     const s = section("https://a.example");
-    expect(s).toMatch(/Check every program/);
+    expect(s).toMatch(/Test the program/);
     expect(s).toMatch(/fix all errors/i);
     expect(s).toMatch(/warnings/);
     expect(s).toMatch(/before (you )?give/);

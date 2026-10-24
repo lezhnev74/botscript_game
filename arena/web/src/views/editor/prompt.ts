@@ -4,17 +4,15 @@ export interface Example {
 }
 
 export interface PromptDocs {
-  /** LANGUAGE.md. */
+  /** LANGUAGE.md (sections 1-8 go into the prompt). */
   language: string;
-  /** VISION.md (the rule sections are cut out of it). */
-  vision: string;
   examples: Example[];
   /** The server address the AI should call, no trailing slash (see resolveBaseUrl). */
   baseUrl: string;
 }
 
-/** VISION sections that describe the rules: world, weapons, scan, randomness, programming, scoring. */
-export const RULE_SECTIONS = [3, 4, 5, 6, 7, 9];
+/** LANGUAGE.md sections that make the spec: rules, shape, execution, memory, readings, scan, built-ins, syntax. */
+export const SPEC_SECTIONS = [1, 2, 3, 4, 5, 6, 7, 8];
 
 /** Cuts the "## N. title" sections with the given numbers out of a markdown text, in document order. */
 export function extractSections(md: string, numbers: number[]): string {
@@ -29,13 +27,17 @@ export function extractSections(md: string, numbers: number[]): string {
     .join("\n\n");
 }
 
-const ROLE = `You are an expert BOTSCRIPT bot author helping a player build a bot for BOT ARENA, a programming game.
-Bots fight in a grid arena; each bot is a small program in BOTSCRIPT (a tiny JavaScript). The language spec, the game
-rules and some example bots follow. Use only what the spec allows.`;
+const ROLE = `You are an expert author of BOTSCRIPT bots for BOT ARENA, a grid-arena programming game. The spec and example bots
+follow. Use only what the spec allows.`;
 
-const REQUEST = `Before you write any code, ask me what the bot should be optimised for: kills, survival, coins, or a mix
-(or a particular style of play). Wait for my answer. Then write one program as a single code block containing only the
-BOTSCRIPT program (no let/var, strings, arrays, closures or recursion; at most 120 lines).`;
+const REQUEST = `Before you write any code, ask me what the bot should be optimised for: kills, survival, coins or a mix. Wait for my answer. Then write one program as a single code block, only the BOTSCRIPT.`;
+
+/** The spec text: the intro of LANGUAGE.md (without its title) and sections 1-8. */
+export function languageSpec(md: string): string {
+  const intro = md.split(/^(?=## )/m)[0] ?? "";
+  const lead = intro.replace(/^# .*\n/, "").replace(/^---$/m, "").trim();
+  return [lead, extractSections(md, SPEC_SECTIONS)].filter(Boolean).join("\n\n");
+}
 
 /** The configured base URL (ARENA_BASE_URL via /api/config) or, when there is none, the page origin. */
 export function resolveBaseUrl(configured: string, origin: string): string {
@@ -66,24 +68,20 @@ export function isPrivateUrl(url: string): boolean {
 function checkSection(base: string): string {
   const note = isPrivateUrl(base)
     ? `\nNote: ${base} is a private address, so you probably cannot reach it from your chat. If a call fails, do not
-retry; follow the rules above by hand and still write a program that passes every check you can do in your head.\n`
+retry; follow the spec by hand and write a program that passes every check you can do in your head.\n`
     : "";
-  return `You can test a program on the real server before you give it to me.
+  return `Test the program on the real server before you give it to me.
 
-- POST ${base}/api/check - send the program as the raw request body (plain text, not JSON).
+- POST ${base}/api/check - the program as the raw request body.
 - GET ${base}/api/check?src=<URL-encoded program> - the same, for tools that can only fetch URLs.
 
-The program is at most 16 KB. The answer is JSON:
+At most 16 KB. The answer is JSON:
 
-- \`{"ok": false, "errors": [{"line": 3, "col": 5, "message": "...", "hint": "..."}]}\` - the program is not valid.
-  The hint says what to write instead.
-- \`{"ok": true, "trial": {...}}\` - the program is valid. It also played a 100-beat trial against 3 house bots, and
-  the trial says what the bot did: \`actions\` (scan, move, fire, wait), \`idle\` (beats missed because the code is
-  too slow), \`noAction\` (beats where loop() ended without an action), \`clicks\` (fired with the gun not loaded),
-  \`hitsTaken\`, \`hits\`, \`kills\`, \`deaths\`, \`coins\`, and \`warnings\` in plain words.
+- \`{"ok": false, "errors": [{"line": 3, "col": 5, "message": "...", "hint": "..."}]}\` - the hint says what to write.
+- \`{"ok": true, "trial": {...}}\` - valid; it also played a 100-beat trial against 3 house bots. \`trial\` has
+  \`actions\` per kind, \`idle\` (beats missed: slow code), \`noAction\`, \`clicks\` (fired unloaded), \`hitsTaken\`, \`hits\`, \`kills\`, \`deaths\`, \`coins\` and \`warnings\`.
 
-Check every program you write. Fix all errors and check again until there are none. Act on the warnings (fix them, or
-tell me why you leave one) before you give me the final code.
+Fix all errors and check again until there are none. Act on the warnings (fix them or tell me why you keep one) before the final code.
 ${note}`;
 }
 
@@ -91,12 +89,11 @@ function exampleBlock(e: Example): string {
   return `### ${e.name}\n\`\`\`js\n${e.source.trimEnd()}\n\`\`\``;
 }
 
-/** The "Copy rulebook for AI" text: role + LANGUAGE.md + game rules + example bots + the request. */
+/** The "Copy rulebook for AI" text: role + LANGUAGE.md sections 1-8 + example bots + check API + the request. */
 export function buildPrompt(docs: PromptDocs): string {
   const parts = [
     "# Your role\n\n" + ROLE,
-    "# Language spec (BOTSCRIPT)\n\n" + docs.language.trim(),
-    "# Game rules\n\n" + extractSections(docs.vision, RULE_SECTIONS),
+    "# Language spec and game rules (BOTSCRIPT)\n\n" + languageSpec(docs.language),
     "# Example bots\n\n" + docs.examples.map(exampleBlock).join("\n\n"),
     "# Check your program\n\n" + checkSection(docs.baseUrl),
     "# Your request\n\n" + REQUEST,

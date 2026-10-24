@@ -8,7 +8,7 @@ import { WsClient, type SocketLike } from "./net/ws";
 import { Canvas2dRenderer } from "./render/canvas2d";
 import { TweenRenderer } from "./render/tween";
 import { Store } from "./store/store";
-import { LANGUAGE_MD, VISION_MD } from "./generated/docs";
+import { LANGUAGE_MD } from "./generated/docs";
 import { TEMPLATES } from "./generated/templates";
 import { mountAddBot } from "./addbot";
 import { mountNav } from "./nav";
@@ -43,7 +43,7 @@ function mountView(route: Route, root: HTMLElement, store: Store): void {
       const api = new ApiClient((u, init) => fetch(u, init), tokens);
       const session = { has: () => tokens.get() !== null, clear: () => tokens.clear() };
       const baseUrl = () => api.config().then((c) => c.baseUrl, () => "");
-      mountEditor(root, store, { api, session, templates: TEMPLATES, docs: { language: LANGUAGE_MD, vision: VISION_MD }, baseUrl });
+      mountEditor(root, store, { api, session, templates: TEMPLATES, docs: { language: LANGUAGE_MD }, baseUrl });
       return;
     }
     case "admin":

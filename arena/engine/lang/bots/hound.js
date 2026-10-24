@@ -1,4 +1,4 @@
-// Hound: follows the sound of gunfire, looks before it steps, fires at a clear line.
+// Hound: follows the sound of gunfire, looks before it steps, fires at a clear line. Recipe: hunter by ear - follow `heard`, look before each step, fire on 3, pin the last sighting.
 // num[0] = direction of the next look, num[1] = looks done since the last sound I followed,
 // num[2] = 1 when the next beat is a look toward the sound, num[3] = beats left to follow it;
 // pin[0] = where I last saw an enemy, pin[1] = the sound I am following

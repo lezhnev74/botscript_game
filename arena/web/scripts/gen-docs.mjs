@@ -1,5 +1,5 @@
 // Generates web/src/generated/{templates,docs}.ts from the repo sources of truth:
-// engine/lang/bots/*.js (templates and prompt examples), LANGUAGE.md and VISION.md (AI prompt).
+// engine/lang/bots/*.js (templates and prompt examples) and LANGUAGE.md (AI prompt).
 // Usage: node scripts/gen-docs.mjs [outDir]   (make gen / make gen-check)
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -26,8 +26,7 @@ const templates =
 
 const docs =
   HEADER +
-  `export const LANGUAGE_MD = ${lit(read(join(repoRoot, "LANGUAGE.md")))};\n\n` +
-  `export const VISION_MD = ${lit(read(join(repoRoot, "VISION.md")))};\n`;
+  `export const LANGUAGE_MD = ${lit(read(join(repoRoot, "LANGUAGE.md")))};\n`;
 
 mkdirSync(out, { recursive: true });
 writeFileSync(join(out, "templates.ts"), templates);
