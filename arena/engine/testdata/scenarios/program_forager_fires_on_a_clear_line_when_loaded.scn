@@ -1,0 +1,14 @@
+name: program - Forager shoots an enemy on its line when loaded and healthy
+rules: coin_every=0
+seed: 1
+map: |
+  #########
+  #A.....B#
+  #########
+bots:
+  A: program forager
+  B: script wait
+beats: 4
+expect:
+  beat 2: Scanned A E 3 0 0
+  beat 3: Fired A E

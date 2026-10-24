@@ -1,0 +1,14 @@
+name: scan - coin outside the cone reads level 0
+seed: 1
+map: |
+  #####
+  #A..#
+  #...#
+  #$..#
+  #####
+bots:
+  A: script scan E, scan S
+beats: 2
+expect:
+  beat 1: Scanned A E 0 0 0
+  beat 2: Scanned A S 0 3 0

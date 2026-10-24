@@ -1,0 +1,4 @@
+{"beat":1,"type":"Fired","args":["C","W"]}
+{"beat":2,"type":"Hit","args":["B","E"],"data":{"by":"C"}}
+{"beat":2,"type":"Killed","args":["C","B"]}
+{"beat":3,"type":"Respawned","args":["B","4","1"]}

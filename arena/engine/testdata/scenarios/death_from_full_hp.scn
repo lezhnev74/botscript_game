@@ -1,0 +1,24 @@
+name: death - four hits (HP 4) kill, the fourth emits Killed, the first three do not
+rules: reload=1
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+bots:
+  A: script fire E, fire E, fire E, fire E
+  B: script wait
+beats: 4
+expect:
+  beat 1: Hit B W
+  beat 1: no Killed
+  at beat 1: B.alive 1
+  beat 2: Hit B W
+  beat 2: no Killed
+  at beat 2: B.hp 2
+  beat 3: Hit B W
+  beat 3: no Killed
+  at beat 3: B.hp 1
+  beat 4: Hit B W
+  beat 4: Killed A B
+  final: B.alive 0

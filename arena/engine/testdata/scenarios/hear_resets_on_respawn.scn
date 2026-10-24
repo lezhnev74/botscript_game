@@ -1,0 +1,21 @@
+name: hear - a bot that dies and respawns forgets what it heard (none)
+seed: 1
+map: |
+  #######
+  #AB...#
+  #######
+start:
+  A: hp=1
+bots:
+  B: script fire W
+beats: 6
+expect:
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 2
+  at beat 1: A.heard_y 1
+  at beat 1: A.alive 0
+  at beat 5: A.alive 0
+  at beat 6: A.alive 1
+  at beat 6: A.heard_set 0
+  at beat 6: A.heard_x -1
+  at beat 6: A.heard_y -1

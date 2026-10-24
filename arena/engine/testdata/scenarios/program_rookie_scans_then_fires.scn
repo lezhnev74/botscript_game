@@ -1,0 +1,17 @@
+name: program - Rookie scans the only open direction, sees the enemy on its line and fires
+seed: 1
+map: |
+  #######
+  #A...B#
+  #######
+bots:
+  A: program rookie
+  B: script wait
+beats: 4
+expect:
+  beat 1: Scanned A E 3 0 0
+  beat 2: Fired A E
+  beat 3: Scanned A E 3 0 0
+  beat 3: Hit B W
+  beat 4: Clicked A E            # Rookie ignores `loaded`: it fires into the reload
+  final: B.hp 3

@@ -1,0 +1,16 @@
+name: scan - a bullet read on the shot beat is dodged by a sidestep on the next beat
+seed: 1
+map: |
+  ###########
+  #A....B...#
+  #.........#
+  ###########
+bots:
+  A: script fire E
+  B: script scan W, move S
+beats: 2
+expect:
+  beat 1: Scanned B W 3 0 3
+  beat 2: Moved B S
+  beat 2: no Hit
+  final: B.hp 4

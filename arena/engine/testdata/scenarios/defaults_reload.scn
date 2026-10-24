@@ -1,0 +1,15 @@
+name: defaults - reload is 3 (tuned: the shortest value that binds a scan-then-fire loop): fire on beat 1, click on 2 and 3, fire again on 4
+rules: default
+seed: 1
+map: |
+  #######
+  #A....#
+  #######
+bots:
+  A: script fire E, fire E, fire E, fire E
+beats: 4
+expect:
+  beat 1: Fired A E
+  beat 2: Clicked A E
+  beat 3: Clicked A E
+  beat 4: Fired A E

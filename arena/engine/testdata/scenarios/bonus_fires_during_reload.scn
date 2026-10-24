@@ -1,0 +1,20 @@
+name: bonus - a stored bonus shot fires while the gun is reloading and does not touch the reload
+seed: 1
+map: |
+  #######
+  #A....#
+  #######
+start:
+  A: bonus=1
+bots:
+  A: script fire E, fire E, fire E, fire E
+beats: 4
+expect:
+  beat 1: Fired A E          # the regular shot
+  at beat 1: A.bonus 1
+  at beat 1: A.cooldown 2
+  beat 2: Fired A E          # the bonus shot, mid-reload
+  at beat 2: A.bonus 0
+  at beat 2: A.cooldown 1    # reload went on counting
+  beat 3: Clicked A E
+  beat 4: Fired A E          # reloaded on schedule (beat 1 + 3)

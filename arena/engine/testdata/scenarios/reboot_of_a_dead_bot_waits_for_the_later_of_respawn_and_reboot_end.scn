@@ -1,0 +1,28 @@
+name: reboot - a bot killed and then rebooted while it waits to respawn is back at the later of the two, with full HP
+seed: 1
+map: |
+  #########
+  #A..B...#
+  #########
+start:
+  B: hp=1
+bots:
+  A: script fire E
+  B: program |
+    function loop() { wait(); }
+edits:
+  beat 3: B reboot 6 program |
+    function loop() { wait(); }
+beats: 9
+expect:
+  beat 1: Killed A B
+  at beat 5: B.alive 0
+  at beat 6: B.alive 0              # the respawn (beat 6) is before the reboot end
+  at beat 6: B.rebooting 2
+  at beat 7: B.rebooting 1
+  at beat 7: B.alive 0
+  at beat 8: B.rebooting 0
+  at beat 8: B.alive 1
+  at beat 8: B.hp 4
+  beat 6: no Respawned
+  beat 8: Respawned B

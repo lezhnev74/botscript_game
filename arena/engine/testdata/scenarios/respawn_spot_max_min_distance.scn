@@ -1,0 +1,22 @@
+name: respawn - the dead bot returns to the free cell farthest from every enemy (here the middle: x=4)
+rules: respawn_beats=1
+seed: 1
+map: |
+  #########
+  #A.B...C#
+  #########
+start:
+  B: hp=1
+bots:
+  A: script wait
+  B: script wait
+  C: script fire W
+beats: 3
+expect:
+  beat 2: Killed C B
+  beat 3: Respawned B 4 1
+  final: B.x 4
+frame 3: |
+  #########
+  #A..B..C#
+  #########

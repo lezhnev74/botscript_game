@@ -1,0 +1,103 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - gocyclo
+    - gocognit
+    - forbidigo
+    - depguard
+  settings:
+    gocyclo:
+      min-complexity: 7   # reports > 7
+    gocognit:
+      min-complexity: 10  # reports > 10
+    forbidigo:
+      forbid:
+        - pattern: ^time\.(Now|Since|Until|Sleep|After|AfterFunc|Tick|NewTimer|NewTicker)$
+          msg: wall clock is forbidden in domain/ and lang/ (determinism); use the Clock port
+        - pattern: ^[a-zA-Z0-9_]+\.(Seed|Int|Intn|IntN|Int32|Int32N|Int31|Int31n|Int63|Int63n|Int64|Int64N|Uint|UintN|Uint32|Uint32N|Uint64|Uint64N|Float32|Float64|ExpFloat64|NormFloat64|Perm|Shuffle|N|Read)$
+          pkg: ^math/rand(/v2)?$
+          msg: global math/rand is forbidden (determinism); use the seeded PCG carried in the World
+      # Type info resolves import aliases and skips user-defined methods named Int etc.
+      # Policy: bans also apply to _test.go in domain/ and lang/ (intended);
+      # hang protection comes from `go test -timeout`, not time.After.
+      analyze-types: true
+    depguard:
+      rules:
+        # Determinism: no wall clock / global rand imports in the pure layers.
+        deterministic:
+          files:
+            - "**/domain/**"
+            - "**/lang/**"
+          deny:
+            - pkg: time
+              desc: wall clock is forbidden in domain/ and lang/ (determinism)
+            - pkg: "math/rand$"
+              desc: global rand is forbidden; use a seeded math/rand/v2 PCG owned by the World
+            - pkg: crypto/rand
+              desc: nondeterministic
+        # Layering: domain <- lang <- app <- adapters <- cmd (inner never imports outer).
+        domain-layer:
+          files: ["**/domain/**"]
+          deny:
+            - pkg: github.com/lezhnev/arena/engine/scenario
+              desc: scenario is test infrastructure; inner layers must not import it
+            - pkg: github.com/lezhnev/arena/engine/lang
+              desc: domain is the innermost layer
+            - pkg: github.com/lezhnev/arena/engine/app
+              desc: domain is the innermost layer
+            - pkg: github.com/lezhnev/arena/engine/adapters
+              desc: domain is the innermost layer
+            - pkg: github.com/lezhnev/arena/engine/cmd
+              desc: domain is the innermost layer
+        lang-layer:
+          files: ["**/lang/**"]
+          deny:
+            - pkg: github.com/lezhnev/arena/engine/scenario
+              desc: scenario is test infrastructure; inner layers must not import it
+            - pkg: github.com/lezhnev/arena/engine/app
+              desc: lang must not import outer layers
+            - pkg: github.com/lezhnev/arena/engine/adapters
+              desc: lang must not import outer layers
+            - pkg: github.com/lezhnev/arena/engine/cmd
+              desc: lang must not import outer layers
+        app-layer:
+          files: ["**/app/**"]
+          deny:
+            - pkg: github.com/lezhnev/arena/engine/scenario
+              desc: scenario is test infrastructure; app must not import it
+            - pkg: github.com/lezhnev/arena/engine/adapters
+              desc: app must not import outer layers
+            - pkg: github.com/lezhnev/arena/engine/cmd
+              desc: app must not import outer layers
+        # The app layer talks to the world only through its ports (Clock, Store, Broadcaster, IDGen).
+        app-ports-only:
+          files: ["**/app/**", "!$test"] # tests may read golden files
+          deny:
+            - pkg: time
+              desc: no wall clock in app; use the Clock port
+            - pkg: os
+              desc: no files or environment in app; use the Store port
+            - pkg: net/http
+              desc: no HTTP in app; that is an adapter
+            - pkg: crypto/rand
+              desc: randomness comes from the IDGen port
+            - pkg: "math/rand$"
+              desc: global rand is forbidden; use a seeded math/rand/v2 PCG
+        adapters-layer:
+          files: ["**/adapters/**"]
+          deny:
+            - pkg: github.com/lezhnev/arena/engine/scenario
+              desc: scenario is test infrastructure; adapters must not import it
+            - pkg: github.com/lezhnev/arena/engine/cmd
+              desc: adapters must not import cmd
+
+  exclusions:
+    rules:
+      # forbidigo only guards the deterministic layers.
+      - path-except: (^|/)(domain|lang)/
+        linters: [forbidigo]
+
+run:
+  tests: true

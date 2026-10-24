@@ -1,0 +1,21 @@
+name: bullet - a target beyond reach is hit when the bullet arrives, on a later beat
+seed: 1
+map: |
+  #######
+  #A...B#
+  #.....#
+  #######
+bots:
+  A: script fire E
+  B: script wait
+beats: 2
+expect:
+  beat 1: Fired A E
+  beat 1: no Hit
+  beat 2: Hit B W
+  final: B.hp 3
+frame 1: |
+  #######
+  #A..*B#
+  #.....#
+  #######

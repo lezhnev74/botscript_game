@@ -1,0 +1,22 @@
+name: program - an infinite loop is a frozen bot (IDLE every beat), a sitting duck
+seed: 1
+map: |
+  #########
+  #A.....B#
+  #########
+bots:
+  A: program program_frozen_by_infinite_loop.js
+  B: script fire W
+beats: 4
+expect:
+  at beat 1: A.act 4
+  at beat 2: A.act 4
+  at beat 3: A.act 4
+  at beat 4: A.act 4
+  at beat 1: A.num_0 9999
+  beat 1: no Moved A
+  beat 2: no Scanned A
+  beat 3: no Fired A
+  beat 2: Hit A E
+  final: A.hp 3
+  final: A.x 1

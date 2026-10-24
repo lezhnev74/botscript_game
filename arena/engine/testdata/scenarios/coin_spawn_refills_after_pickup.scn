@@ -1,0 +1,16 @@
+name: coin - after a pickup the timer spawns the next coin (coin_max=1, every 2 beats)
+rules: coin_every=2 coin_max=1
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+bots:
+  A: script move E, wait, wait, wait
+beats: 4
+expect:
+  beat 1: CoinTaken A 2 1
+  beat 2: CoinSpawned
+  beat 3: no CoinSpawned
+  beat 4: no CoinSpawned
+  final: A.bonus 1

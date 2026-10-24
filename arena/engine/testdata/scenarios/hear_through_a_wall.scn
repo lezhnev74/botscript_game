@@ -1,0 +1,13 @@
+name: hear - walls do not block sound: a shot behind a wall is heard
+seed: 1
+map: |
+  #######
+  #A.#.B#
+  #######
+bots:
+  B: script fire N
+beats: 1
+expect:
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 5
+  at beat 1: A.heard_y 1

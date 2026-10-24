@@ -1,0 +1,17 @@
+name: coin - a coin heals 1 HP (coin_heal) as well as giving the bonus shot
+rules: coin_every=0
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+start:
+  A: hp=2
+bots:
+  A: script move E
+beats: 1
+expect:
+  beat 1: CoinTaken A 2 1
+  at beat 0: A.hp 2
+  final: A.hp 3
+  final: A.bonus 1

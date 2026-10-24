@@ -1,0 +1,38 @@
+name: program - a hot-swap starts a fresh loop() but keeps memory, HP, reload and bonus
+seed: 1
+map: |
+  #########
+  #A.....B#
+  #########
+start:
+  A: hp=2 cooldown=4 bonus=1
+bots:
+  A: program |
+    function loop() {
+      num[0] = num[0] + 1;  wait();
+      num[0] = num[0] + 10; wait();
+      num[0] = num[0] + 100; wait();
+    }
+  B: script wait
+edits:
+  beat 3: A program |
+    function loop() {
+      num[1] = 7;
+      scan(E);
+    }
+beats: 4
+expect:
+  at beat 2: A.num_0 11
+  at beat 2: A.act 3             # WAIT
+  at beat 3: A.num_0 11         # kept; the old num[0] + 100 never ran (fresh loop of the new code)
+  at beat 3: A.num_1 7
+  at beat 3: A.act 0             # SCAN
+  beat 3: Scanned A E 3 0 0
+  beat 2: no Scanned A
+  at beat 2: A.hp 2
+  at beat 3: A.hp 2              # kept
+  at beat 2: A.cooldown 2
+  at beat 3: A.cooldown 1        # the reload keeps counting through the swap
+  at beat 3: A.bonus 1           # kept
+  at beat 4: A.num_1 7
+  final: A.num_0 11

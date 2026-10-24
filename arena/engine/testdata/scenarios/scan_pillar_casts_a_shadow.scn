@@ -1,0 +1,16 @@
+name: scan - a pillar hides the bot behind it, a bot off its shadow is seen
+seed: 1
+map: |
+  #########
+  #.......#
+  #A.#..B.#
+  #.......#
+  #.....C.#
+  #########
+bots:
+  A: script scan E
+  B: script wait
+  C: script wait
+beats: 1
+expect:
+  beat 1: Scanned A E 1 0 0

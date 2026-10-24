@@ -1,0 +1,15 @@
+name: coin - coin_heal is a rule: coin_heal=0 takes the coin without healing
+rules: coin_every=0 coin_heal=0
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+start:
+  A: hp=2
+bots:
+  A: script move E
+beats: 1
+expect:
+  beat 1: CoinTaken A 2 1
+  final: A.hp 2

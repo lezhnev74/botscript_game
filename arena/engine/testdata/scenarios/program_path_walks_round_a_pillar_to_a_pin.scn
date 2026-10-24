@@ -1,0 +1,35 @@
+name: program - a bot pins a far cell and follows path() round a wall in the minimal number of beats
+seed: 1
+map: |
+  #######
+  #A.#..#
+  #..#..#
+  #.....#
+  #######
+bots:
+  A: program |
+    function loop() {
+      if (pin[0] == none) {
+        pin[0] = at(4, 1);
+        num[0] = steps(pin[0]);
+      }
+      if (here() == pin[0]) {
+        num[1] = 1;
+        wait();
+      } else {
+        move(path(pin[0]));
+      }
+    }
+beats: 9
+expect:
+  at beat 1: A.num_0 7           # steps(pin[0]) = 7 round the wall
+  at beat 1: A.x 2               # ties go E before S
+  at beat 3: A.y 3
+  at beat 5: A.x 4
+  at beat 6: A.y 2
+  at beat 6: A.num_1 0           # not there yet
+  at beat 7: A.y 1               # 7 beats, the minimal walk
+  at beat 7: A.num_1 0
+  at beat 8: A.num_1 1           # here() == pin[0]: arrived, steps was exact
+  final: A.x 4
+  final: A.y 1

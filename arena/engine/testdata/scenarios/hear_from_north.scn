@@ -1,0 +1,18 @@
+name: hear - a shot fired to the north of me is heard: `heard` is the shooter's cell (N of me)
+seed: 1
+map: |
+  #######
+  #..B..#
+  #.....#
+  #..A..#
+  #.....#
+  #.....#
+  #######
+bots:
+  B: script fire N
+beats: 1
+expect:
+  beat 1: Fired B N
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 3
+  at beat 1: A.heard_y 1

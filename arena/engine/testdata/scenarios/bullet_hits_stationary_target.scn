@@ -1,0 +1,21 @@
+name: bullet - a target that stays in line is hit on the beat it was fired at (damage 1)
+seed: 1
+map: |
+  #######
+  #A..B.#
+  #.....#
+  #######
+bots:
+  A: script fire E
+  B: script wait
+beats: 1
+expect:
+  beat 1: Fired A E
+  beat 1: Hit B W
+  final: B.hp 3
+  final: A.hp 4
+frame 1: |                # the bullet is used up
+  #######
+  #A..B.#
+  #.....#
+  #######

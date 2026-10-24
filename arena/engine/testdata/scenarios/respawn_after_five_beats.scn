@@ -1,0 +1,21 @@
+name: respawn - a bot killed on beat 1 is gone for respawn_beats (5) beats and comes back at the end of beat 6
+seed: 1
+map: |
+  #########
+  #A..B...#
+  #########
+start:
+  B: hp=1
+bots:
+  A: script fire E
+  B: script wait
+beats: 6
+expect:
+  beat 1: Killed A B
+  beat 2: no Respawned
+  beat 3: no Respawned
+  beat 4: no Respawned
+  beat 5: no Respawned
+  beat 6: Respawned B
+  at beat 5: B.alive 0
+  at beat 6: B.alive 1

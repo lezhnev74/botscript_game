@@ -1,0 +1,20 @@
+name: moving into a wall is a silent no-op
+seed: 1
+map: |
+  #####
+  #A..#
+  #####
+bots:
+  A: script move N, move W
+beats: 2
+expect:
+  beat 1: no Moved
+  beat 1: no Bumped
+  beat 2: no Moved
+  beat 2: no Bumped
+  final: A.x 1
+  final: A.y 1
+frame 2: |
+  #####
+  #A..#
+  #####

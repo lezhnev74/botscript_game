@@ -1,0 +1,18 @@
+name: a bot moves into a free cell
+seed: 1
+map: |
+  #####
+  #A..#
+  #####
+bots:
+  A: script move E, move E
+beats: 2
+expect:
+  beat 1: Moved A E
+  beat 2: Moved A E
+  final: A.x 3
+  final: A.y 1
+frame 2: |
+  #####
+  #..A#
+  #####

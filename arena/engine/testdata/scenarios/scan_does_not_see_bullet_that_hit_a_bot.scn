@@ -1,0 +1,17 @@
+name: scan - a bullet that struck another bot this beat is not seen by a scanner behind it
+seed: 1
+map: |
+  ###########
+  #S..D...###
+  #.........#
+  ###########
+bullets:
+  6,1,W
+bots:
+  S: script scan E
+  D: script wait
+beats: 1
+expect:
+  beat 1: Hit D E
+  beat 1: Scanned S E 3 0 0
+  beat 1: no Hit S

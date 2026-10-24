@@ -1,0 +1,14 @@
+name: coin - coins already on the map count towards coin_max, so nothing spawns
+rules: coin_every=1 coin_max=1
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+bots:
+  A: script wait
+beats: 3
+expect:
+  beat 1: no CoinSpawned
+  beat 2: no CoinSpawned
+  beat 3: no CoinSpawned

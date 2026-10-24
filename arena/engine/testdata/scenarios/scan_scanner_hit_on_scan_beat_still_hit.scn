@@ -1,0 +1,15 @@
+name: scan - a scanner hit on its scan beat is still hit (the bullet that hit it is not read)
+seed: 1
+map: |
+  ########
+  #A..B..#
+  ########
+bots:
+  A: script fire E
+  B: script scan W
+beats: 1
+expect:
+  beat 1: Fired A E
+  beat 1: Scanned B W 3 0 0
+  beat 1: Hit B W
+  final: B.hp 3

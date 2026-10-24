@@ -1,0 +1,18 @@
+name: chain - the occupant steps away but the follower still bumps (snapshot rule)
+seed: 1
+map: |
+  #####
+  #AB.#
+  #####
+bots:
+  A: script move E
+  B: script move E
+beats: 1
+expect:
+  beat 1: Bumped A E
+  beat 1: Moved B E
+  beat 1: no Moved A
+frame 1: |
+  #####
+  #A.B#
+  #####

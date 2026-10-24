@@ -1,0 +1,15 @@
+name: fire - the reload length comes from the rules (reload=1 shoots every beat)
+rules: reload=1
+seed: 1
+map: |
+  #####
+  #A..#
+  #####
+bots:
+  A: script fire E, fire E, fire E
+beats: 3
+expect:
+  beat 1: Fired A E
+  beat 2: Fired A E
+  beat 3: Fired A E
+  beat 3: no Clicked

@@ -1,0 +1,2 @@
+{"beat":1,"type":"Fired","args":["A","S"]}
+{"beat":1,"type":"Hit","args":["B","N"],"data":{"by":"A"}}

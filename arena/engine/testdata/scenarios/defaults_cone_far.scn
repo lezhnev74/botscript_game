@@ -1,0 +1,33 @@
+name: defaults - cone_slope is 100 far out too: 9 along and 10 off is outside the wedge (a slope of 112 or more would read it)
+rules: default
+seed: 1
+map: |
+  ############
+  #.........B#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #A.........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  #..........#
+  ############
+bots:
+  A: script scan E
+  B: script wait
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 0

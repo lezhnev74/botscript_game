@@ -1,0 +1,11 @@
+name: scan - walls block the view, wall cells hold nothing
+seed: 1
+map: |
+  #######
+  #A#..B#
+  #######
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 0

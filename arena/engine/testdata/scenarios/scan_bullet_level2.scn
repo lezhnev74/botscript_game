@@ -1,0 +1,18 @@
+name: scan - bullet level 2 (flying at me one lane off)
+seed: 1
+map: |
+  #########
+  #.......#
+  #.......#
+  #A......#
+  #.......#
+  #.......#
+  #########
+bullets:
+  7,2,W
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 2
+  beat 1: no Hit

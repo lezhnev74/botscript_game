@@ -1,0 +1,28 @@
+name: target that moves on the beat you fire wins
+rules: default            # or overrides: reload=3 bullet_speed=3
+seed: 1
+map: |
+  #######
+  #A...B#
+  #.....#
+  #######
+bots:
+  A: script fire E
+  B: script move S
+beats: 2
+expect:
+  beat 1: Fired A E
+  beat 1: Moved B S
+  beat 1: no Hit
+  beat 2: no Hit
+  final: B.hp 4
+frame 1: |                # the bullet flew 3 cells: 2, 3, 4
+  #######
+  #A..*.#
+  #....B#
+  #######
+frame 2: |                # and went on through the empty cell, into the wall
+  #######
+  #A....#
+  #....B#
+  #######

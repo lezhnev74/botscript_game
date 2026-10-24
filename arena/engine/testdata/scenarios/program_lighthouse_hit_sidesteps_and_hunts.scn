@@ -1,0 +1,21 @@
+name: program - Lighthouse hit from the east steps off the line, remembers the shooter and looks back (num[1] = 4 passes)
+seed: 1
+map: |
+  ###########
+  #.........#
+  #A..B.....#
+  #.........#
+  ###########
+bots:
+  A: program lighthouse
+  B: script fire W
+beats: 3
+expect:
+  beat 1: Fired B W
+  beat 1: Hit A E
+  beat 2: Moved A                # onHit: off the line first
+  at beat 2: A.num_1 0          # num[2] = from; num[1] = 4 come after the move() in onHit: they run next beat
+  beat 3: Scanned A E            # the next pass looks at c, not at the sweep
+  at beat 3: A.num_1 3          # num[1] = 4, then this pass used one
+  at beat 3: A.num_2 1          # num[2] = shooter direction (E)
+  final: A.hp 3

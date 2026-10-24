@@ -1,0 +1,19 @@
+name: death - a dead bot's cell is free: another bot can step into it
+seed: 1
+map: |
+  #######
+  #A.B.C#
+  #######
+start:
+  B: hp=1
+bots:
+  A: script fire E, wait
+  B: script wait
+  C: script wait, move W, move W
+beats: 3
+expect:
+  beat 1: Killed A B
+  beat 2: Moved C W
+  beat 3: Moved C W
+  beat 3: no Bumped
+  final: C.x 3

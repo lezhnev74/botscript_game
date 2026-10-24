@@ -1,0 +1,30 @@
+name: program - a bot that pins `heard` and walks `path(pin[0])` goes toward gunfire, then stops next to the shooter
+rules: coin_every=0
+seed: 1
+map: |
+  #################
+  #......A....B..C#
+  #################
+bots:
+  A: program |
+    function loop() {
+      if (heard != pin[0]) pin[0] = heard;
+      if (pin[0] != none && steps(pin[0]) > 1) {
+        move(path(pin[0]));
+      } else {
+        wait();
+      }
+    }
+  B: script fire E, wait, wait
+  C: script wait
+beats: 8
+expect:
+  at beat 1: A.x 7              # the shot is only heard after beat 1
+  at beat 1: A.heard_x 12
+  at beat 2: A.x 8
+  at beat 3: A.x 9
+  at beat 4: A.x 10
+  at beat 5: A.x 11             # next to B: steps is 1, A holds still from beat 6
+  at beat 6: A.x 11
+  final: A.x 11
+  final: A.heard_x 12           # still remembered

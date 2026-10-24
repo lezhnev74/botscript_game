@@ -1,0 +1,15 @@
+name: scan - the best-aligned object of each kind sets the level, kinds are independent
+seed: 1
+map: |
+  #######
+  #.....#
+  #..B..#
+  #A.C.$#
+  #.....#
+  #...D.#
+  #######
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 3 3 0

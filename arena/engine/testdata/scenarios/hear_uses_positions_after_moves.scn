@@ -1,0 +1,16 @@
+name: hear - range is checked from where bots stand after moves: A starts 7 cells from B (out of range) but steps 1 west before the shot lands, so B's cell is heard
+seed: 1
+map: |
+  ##########
+  #B......A#
+  ##########
+bots:
+  A: script move W
+  B: script fire N
+beats: 1
+expect:
+  at beat 1: A.x 7
+  at beat 1: A.y 1
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 1
+  at beat 1: A.heard_y 1

@@ -1,0 +1,17 @@
+name: hear - hear_range is a rule (2): a shot 3 cells away is not heard, 2 cells away is
+rules: hear_range=2
+seed: 1
+map: |
+  #########
+  #A..B.C.#
+  #########
+bots:
+  B: script fire N
+beats: 1
+expect:
+  at beat 1: A.heard_set 0
+  at beat 1: A.heard_x -1
+  at beat 1: A.heard_y -1
+  at beat 1: C.heard_set 1
+  at beat 1: C.heard_x 4
+  at beat 1: C.heard_y 1

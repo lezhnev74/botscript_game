@@ -1,0 +1,17 @@
+name: coin - only the bot that arrives on the coin takes it, not a bot that bumped off it
+rules: coin_every=0
+seed: 1
+map: |
+  #####
+  #AB$#
+  #####
+bots:
+  A: script move E
+  B: script move E
+beats: 1
+expect:
+  beat 1: Bumped A E
+  beat 1: Moved B E
+  beat 1: CoinTaken B 3 1
+  final: A.bonus 0
+  final: B.bonus 1

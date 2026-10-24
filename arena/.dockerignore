@@ -1,0 +1,9 @@
+.git
+**/node_modules
+web/dist
+data
+coverage.out
+**/coverage.out
+*.out
+.env
+docker-compose.yml

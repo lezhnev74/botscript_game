@@ -1,0 +1,20 @@
+name: death - stored bonus shots are lost on death and do not come back with the respawn
+rules: respawn_beats=1
+seed: 1
+map: |
+  #######
+  #A.B..#
+  #######
+start:
+  B: hp=1 bonus=2
+bots:
+  A: script fire E
+  B: script wait
+beats: 2
+expect:
+  beat 1: Killed A B
+  at beat 0: B.bonus 2
+  at beat 1: B.bonus 0
+  beat 2: Respawned B
+  final: B.bonus 0
+  final: B.alive 1

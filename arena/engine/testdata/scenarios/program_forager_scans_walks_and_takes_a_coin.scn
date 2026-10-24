@@ -1,0 +1,17 @@
+name: program - Forager sees a coin on its line with a scan, heads for it, keeps looking its way and takes it
+rules: coin_every=0
+seed: 1
+map: |
+  ###########
+  #A....$...#
+  ###########
+bots:
+  A: program forager
+beats: 12
+expect:
+  beat 2: Scanned A E 0 3 0     # the coin is on the line (level 3), distance unknown
+  at beat 3: A.num_2 2          # heading E (1 + 1)
+  beat 3: Moved A E
+  beat 4: Scanned A E 0 3 0     # still ahead: keeps going
+  beat 9: CoinTaken A 6 1
+  final: A.num_2 0              # the next look finds nothing: the heading is forgotten

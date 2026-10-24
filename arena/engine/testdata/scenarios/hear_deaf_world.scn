@@ -1,0 +1,14 @@
+name: hear - hear_range=0 is a deaf world: even a shot next door is not heard
+rules: hear_range=0
+seed: 1
+map: |
+  #####
+  #AB.#
+  #####
+bots:
+  B: script fire N
+beats: 1
+expect:
+  at beat 1: A.heard_set 0
+  at beat 1: A.heard_x -1
+  at beat 1: A.heard_y -1

@@ -1,0 +1,15 @@
+name: bullet - two bullets arriving on one bot in the same beat deal 2 damage; it is told about the first
+seed: 1
+map: |
+  #######
+  #A.B.C#
+  #######
+bots:
+  A: script fire E
+  C: script fire W
+beats: 1
+expect:
+  beat 1: Hit B W
+  beat 1: Hit B E
+  final: B.hp 2
+  final: B.hit 3            # W = first hit: bullets are processed in shooter-ID order (A before C)

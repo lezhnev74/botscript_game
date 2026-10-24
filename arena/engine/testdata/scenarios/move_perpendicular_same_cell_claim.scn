@@ -1,0 +1,22 @@
+name: two bots arriving at one free cell from right angles - both bump with their own directions
+seed: 1
+map: |
+  #####
+  #.B.#
+  #A..#
+  #####
+bots:
+  A: script move E
+  B: script move S
+beats: 1
+expect:
+  beat 1: Bumped A E
+  beat 1: Bumped B S
+  beat 1: no Moved
+  final: A.x 1
+  final: B.y 1
+frame 1: |
+  #####
+  #.B.#
+  #A..#
+  #####

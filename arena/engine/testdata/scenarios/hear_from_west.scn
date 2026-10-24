@@ -1,0 +1,18 @@
+name: hear - a shot fired to the west of me is heard: `heard` is the shooter's cell (W of me)
+seed: 1
+map: |
+  #######
+  #.....#
+  #.....#
+  #B.A..#
+  #.....#
+  #.....#
+  #######
+bots:
+  B: script fire W
+beats: 1
+expect:
+  beat 1: Fired B W
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 1
+  at beat 1: A.heard_y 3

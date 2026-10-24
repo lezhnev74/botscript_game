@@ -1,0 +1,5 @@
+# make gen: Go wire types -> TypeScript (the UI's only contract with the engine)
+packages:
+  - path: "github.com/lezhnev/arena/engine/adapters/protocol"
+    output_path: "../web/src/protocol/protocol.ts"
+    type_mappings: {}

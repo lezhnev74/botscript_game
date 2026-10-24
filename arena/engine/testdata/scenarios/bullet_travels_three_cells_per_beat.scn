@@ -1,0 +1,25 @@
+name: bullet - flies 3 cells per beat starting at the neighbour cell, then on until the wall
+seed: 1
+map: |
+  #########
+  #A......#
+  #########
+bots:
+  A: script fire E
+beats: 3
+expect:
+  beat 1: Fired A E
+  beat 1: no Hit
+  beat 3: no Hit
+frame 1: |
+  #########
+  #A..*...#
+  #########
+frame 2: |
+  #########
+  #A.....*#
+  #########
+frame 3: |                # the wall ate it, silently
+  #########
+  #A......#
+  #########

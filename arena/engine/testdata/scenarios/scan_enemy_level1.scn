@@ -1,0 +1,15 @@
+name: scan - enemy elsewhere in the cone reads level 1
+seed: 1
+map: |
+  #######
+  #A....#
+  #.....#
+  #.....#
+  #...B.#
+  #.....#
+  #######
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 1 0 0

@@ -1,0 +1,21 @@
+name: shield - the shield length comes from the rules (shield_beats=3 blocks the bullet that lands on the 3rd shielded beat)
+rules: respawn_beats=1 reload=1 shield_beats=3
+seed: 1
+map: |
+  #######
+  #AB...#
+  #######
+start:
+  B: hp=1
+bots:
+  A: script fire E, wait, fire E, fire E, fire E, wait
+  B: script wait
+beats: 6
+expect:
+  beat 2: Respawned B 5 1
+  at beat 2: B.shield 3
+  beat 4: no Hit
+  beat 5: no Hit
+  beat 6: Hit B W
+  at beat 5: B.shield 0
+  final: B.hp 3

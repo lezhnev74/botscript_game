@@ -1,0 +1,36 @@
+name: program - Tracker sidesteps from an enemy at level 2, reads level 1 (wrong side) and crosses over
+seed: 2                         # with this seed the first pick(left, right) is W: the wrong side
+map: |
+  #######
+  #...B.#
+  #.....#
+  #.....#
+  #.....#
+  #..A..#
+  #######
+bots:
+  A: program tracker
+  B: script wait
+beats: 8
+expect:
+  beat 1: Scanned A N 2 0 0     # the enemy is one lane off (column 4, I am in column 3)
+  beat 2: Moved A W             # guess: step west
+  at beat 3: A.num_1 3         # num[1] remembers the sidestep (W), num[2] = 1 "I just sidestepped"
+  at beat 3: A.num_2 1
+  beat 3: Scanned A N 1 0 0     # two lanes off now: wrong side
+  beat 4: Moved A E             # cross over: back(b) twice
+  beat 5: Moved A E
+  at beat 4: A.num_2 0
+  at beat 5: A.x 4
+  beat 6: Scanned A N 3 0 0     # on the line at last
+  beat 7: Fired A N
+  beat 8: Hit B S
+  final: B.hp 3
+frame 5: |
+  #######
+  #...B.#
+  #.....#
+  #.....#
+  #.....#
+  #...A.#
+  #######

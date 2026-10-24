@@ -1,0 +1,16 @@
+name: hear - a click (no shot available) makes no sound
+seed: 1
+map: |
+  #######
+  #A...B#
+  #######
+start:
+  B: cooldown=2
+bots:
+  B: script fire N
+beats: 1
+expect:
+  beat 1: Clicked B N
+  at beat 1: A.heard_set 0
+  at beat 1: A.heard_x -1
+  at beat 1: A.heard_y -1

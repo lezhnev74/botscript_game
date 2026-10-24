@@ -1,0 +1,20 @@
+name: program - Forager keeps walking when an enemy is one lane off but it is healthy and loaded
+rules: coin_every=0
+seed: 1
+map: |
+  ##########
+  #A....$..#
+  #....B...#
+  #........#
+  ##########
+start:
+  A: hp=4
+bots:
+  A: program forager
+  B: script wait
+beats: 4
+expect:
+  beat 1: Moved A E
+  beat 2: Scanned A E 2 3 0     # enemy one lane off (2), the coin on the line (3)
+  at beat 2: A.hp 4
+  beat 3: Moved A E            # healthy and loaded: not scared, walks on to the coin

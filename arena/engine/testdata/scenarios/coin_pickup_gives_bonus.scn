@@ -1,0 +1,19 @@
+name: coin - stepping onto a coin takes it: CoinTaken and +1 bonus shot
+rules: coin_every=0
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+bots:
+  A: script move E
+beats: 1
+expect:
+  beat 1: Moved A E
+  beat 1: CoinTaken A 2 1
+  at beat 0: A.bonus 0
+  final: A.bonus 1
+frame 1: |
+  #####
+  #.A.#
+  #####

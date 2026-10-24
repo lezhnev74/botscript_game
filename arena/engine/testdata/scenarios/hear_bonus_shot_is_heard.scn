@@ -1,0 +1,16 @@
+name: hear - a bonus shot fired during the reload is heard like a loaded one
+seed: 1
+map: |
+  #######
+  #A...B#
+  #######
+start:
+  B: cooldown=2 bonus=1
+bots:
+  B: script fire N
+beats: 1
+expect:
+  beat 1: Fired B N
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 5
+  at beat 1: A.heard_y 1

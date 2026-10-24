@@ -1,0 +1,15 @@
+name: bonus - with the gun loaded the regular shot goes first and the bonus is kept
+seed: 1
+map: |
+  #####
+  #A..#
+  #####
+start:
+  A: bonus=2
+bots:
+  A: script fire E
+beats: 1
+expect:
+  beat 1: Fired A E
+  final: A.bonus 2
+  final: A.cooldown 2

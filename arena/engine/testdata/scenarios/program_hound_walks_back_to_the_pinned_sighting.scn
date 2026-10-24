@@ -1,0 +1,25 @@
+name: program - Hound pins a sighting, creeps toward a shot, then with no news walks back to the pin
+rules: coin_every=0
+seed: 1
+map: |
+  #########
+  #A..B...#
+  #.......#
+  #.......#
+  #########
+bots:
+  A: program hound
+  B: script wait, move S, move S, fire N
+beats: 13
+expect:
+  beat 1: Scanned A E 3 0 0
+  at beat 2: A.pin_0_x 1        # pinned the cell it stood on when it saw B
+  at beat 2: A.pin_0_y 1
+  beat 6: Moved A E             # B fired (out of the line of sight): creeps toward the shot, away from the pin
+  at beat 11: A.x 2             # the last look of the all-round look: no news
+  at beat 11: A.pin_0_x 1
+  beat 12: Moved A W            # walks path(pin[0]) back to the sighting
+  at beat 12: A.x 1
+  at beat 12: A.pin_0_set 1
+  at beat 13: A.pin_0_set 0     # arrived: pin[0] = none, then it wanders off
+  at beat 13: A.pin_0_x -1

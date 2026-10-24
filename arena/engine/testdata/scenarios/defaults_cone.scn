@@ -1,0 +1,20 @@
+name: defaults - cone_slope is 100 (tuned: a 90 degree wedge, four scans tile the arena): 2 along and 2 off is level 1, 2 along and 3 off is outside
+rules: default
+seed: 1
+map: |
+  #########
+  #A......#
+  #.......#
+  #..B....#
+  #.......#
+  #.......#
+  #C......#
+  #########
+bots:
+  A: script scan E
+  B: script wait
+  C: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 1 0 0
+  beat 1: Scanned C E 0 0 0

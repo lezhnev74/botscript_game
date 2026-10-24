@@ -1,0 +1,14 @@
+name: bullet - the shooter is not hit at spawn, an adjacent bot is hit at once
+seed: 1
+map: |
+  #####
+  #AB.#
+  #####
+bots:
+  A: script fire E
+beats: 1
+expect:
+  beat 1: Hit B W
+  beat 1: no Hit A
+  final: A.hp 4
+  final: B.hp 3

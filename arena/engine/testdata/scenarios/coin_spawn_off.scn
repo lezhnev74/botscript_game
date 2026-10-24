@@ -1,0 +1,14 @@
+name: coin - coin_every=0 switches spawning off
+rules: coin_every=0 coin_max=3
+seed: 1
+map: |
+  #####
+  #A..#
+  #####
+bots:
+  A: script wait
+beats: 20
+expect:
+  beat 1: no CoinSpawned
+  beat 10: no CoinSpawned
+  beat 20: no CoinSpawned

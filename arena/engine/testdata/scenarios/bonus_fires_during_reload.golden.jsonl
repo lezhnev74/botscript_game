@@ -1,0 +1,4 @@
+{"beat":1,"type":"Fired","args":["A","E"]}
+{"beat":2,"type":"Fired","args":["A","E"]}
+{"beat":3,"type":"Clicked","args":["A","E"]}
+{"beat":4,"type":"Fired","args":["A","E"]}

@@ -1,0 +1,19 @@
+name: shield - the last shielded beat still blocks; the next bullet hits normally
+rules: reload=1
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+start:
+  B: shield=1
+bots:
+  A: script fire E, fire E
+  B: script wait
+beats: 2
+expect:
+  beat 1: no Hit
+  beat 2: Hit B W
+  at beat 1: B.shield 0
+  at beat 1: B.hp 4
+  final: B.hp 3

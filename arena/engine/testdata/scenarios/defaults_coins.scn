@@ -1,0 +1,25 @@
+name: defaults - coin_every is 50 and coin_max is 5 (tuned in step 28): a coin every 50 beats, the fifth the last, none on beat 300
+rules: default
+seed: 1
+map: |
+  #########
+  #A......#
+  #.......#
+  #......B#
+  #########
+bots:
+  A: script wait
+  B: script wait
+beats: 300
+expect:
+  beat 10: no CoinSpawned
+  beat 49: no CoinSpawned
+  beat 50: CoinSpawned
+  beat 51: no CoinSpawned
+  beat 99: no CoinSpawned
+  beat 100: CoinSpawned
+  beat 150: CoinSpawned
+  beat 200: CoinSpawned
+  beat 250: CoinSpawned
+  beat 251: no CoinSpawned
+  beat 300: no CoinSpawned

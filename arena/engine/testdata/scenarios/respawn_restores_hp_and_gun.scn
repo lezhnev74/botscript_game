@@ -1,0 +1,22 @@
+name: respawn - back with full HP, an empty bonus store, a loaded gun and 2 beats of shield
+rules: respawn_beats=1
+seed: 1
+map: |
+  #######
+  #A.B..#
+  #######
+start:
+  B: hp=1 bonus=1 cooldown=3
+bots:
+  A: script fire E
+  B: script wait
+beats: 2
+expect:
+  beat 1: Killed A B
+  beat 2: Respawned B
+  at beat 1: B.hp 0
+  final: B.hp 4
+  final: B.bonus 0
+  final: B.cooldown 0
+  final: B.loaded 1
+  final: B.shield 2

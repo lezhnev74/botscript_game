@@ -1,0 +1,21 @@
+name: reboot - a save during a reboot replaces the program but does not restart the countdown
+seed: 1
+map: |
+  #########
+  #A.....B#
+  #########
+bots:
+  A: program |
+    function loop() { wait(); }
+  B: script wait
+edits:
+  beat 2: A reboot 4 program |
+    function loop() { num[0] = 1; wait(); }
+  beat 4: A reboot 4 program |
+    function loop() { num[0] = 2; wait(); }
+beats: 7
+expect:
+  at beat 3: A.rebooting 2
+  at beat 4: A.rebooting 1          # the save on beat 4 did not restart the countdown
+  at beat 5: A.alive 1              # beat 2 + 4 beats off the map
+  at beat 6: A.num_0 2              # the latest program runs

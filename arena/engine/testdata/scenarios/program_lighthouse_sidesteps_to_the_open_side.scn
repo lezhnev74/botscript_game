@@ -1,0 +1,21 @@
+name: program - Lighthouse against the top wall sidesteps to the open side (south), not into the wall
+seed: 1
+map: |
+  ###########
+  #A.......B#
+  #.........#
+  #.........#
+  ###########
+bullets:
+  8,1,W,B
+bots:
+  A: program lighthouse
+  B: script wait
+beats: 3
+expect:
+  beat 1: Scanned A E 3 0 3
+  beat 2: Moved A S
+  beat 2: no Hit
+  beat 3: no Hit
+  final: A.hp 4
+  final: A.y 2

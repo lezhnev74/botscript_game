@@ -1,0 +1,4 @@
+{"beat":1,"type":"Scanned","args":["B","W","3","0","0"],"data":{"cells":[{"x":4,"y":1},{"x":3,"y":1},{"x":2,"y":1},{"x":1,"y":1}],"seen":[{"kind":"enemy","x":1,"y":1,"level":3}]}}
+{"beat":2,"type":"Moved","args":["B","W"]}
+{"beat":3,"type":"Fired","args":["B","W"]}
+{"beat":3,"type":"Hit","args":["A","E"],"data":{"by":"B"}}

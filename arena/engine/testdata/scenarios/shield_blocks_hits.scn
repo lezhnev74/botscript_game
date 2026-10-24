@@ -1,0 +1,25 @@
+name: shield - a shielded bot takes no damage: the bullet is spent, no Hit, no interrupt
+rules: reload=1
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+start:
+  B: shield=2
+bots:
+  A: script fire E, fire E
+  B: script wait
+beats: 2
+expect:
+  beat 1: Fired A E
+  beat 1: no Hit
+  beat 2: no Hit
+  at beat 1: B.shield 1
+  at beat 1: B.hit -1
+  final: B.hp 4
+  final: B.shield 0
+frame 2: |
+  #####
+  #A.B#
+  #####

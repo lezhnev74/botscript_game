@@ -1,0 +1,19 @@
+name: program - move(path(p)) toward a sealed-off pin stands still (a negative direction is a wait, trail act WAIT)
+seed: 1
+map: |
+  #######
+  #A..#.#
+  #...#.#
+  #######
+bots:
+  A: program |
+    function loop() {
+      pin[0] = at(5, 1);
+      move(path(pin[0]));
+    }
+beats: 3
+expect:
+  at beat 1: A.act 3
+  final: A.x 1
+  final: A.y 1
+  final: A.act 3

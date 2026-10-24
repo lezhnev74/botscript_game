@@ -1,0 +1,39 @@
+name: reboot - the bot leaves the map for K beats, frees its cell, then returns with HP, reload and memory kept
+seed: 1
+map: |
+  #########
+  #A.....B#
+  #########
+start:
+  A: hp=2 cooldown=4 bonus=1
+bots:
+  A: program |
+    function loop() {
+      num[0] = num[0] + 1; wait();
+    }
+  B: script wait
+edits:
+  beat 3: A reboot 3 program |
+    function loop() {
+      num[1] = num[1] + 1; wait();
+    }
+beats: 7
+expect:
+  at beat 2: A.alive 1
+  at beat 2: A.rebooting 0
+  at beat 3: A.alive 0               # off the map from the start of beat 3
+  at beat 3: A.rebooting 2
+  at beat 4: A.rebooting 1
+  at beat 4: A.x 1                   # remembers the cell it left
+  at beat 5: A.alive 1               # back at the end of beat 5 (3 beats off the map)
+  at beat 5: A.rebooting 0
+  at beat 3: A.hp 2
+  at beat 5: A.hp 2                  # kept
+  at beat 5: A.bonus 1               # kept
+  at beat 2: A.cooldown 2
+  at beat 5: A.cooldown 2            # the gun does not reload while the bot is off the map
+  at beat 5: A.shield 2              # the respawn shield
+  at beat 4: A.num_0 2               # memory kept, the old program does not run
+  at beat 5: A.num_0 2
+  at beat 6: A.num_1 1               # the new program runs from a fresh loop()
+  final: A.num_0 2

@@ -1,0 +1,18 @@
+name: bullet - HP never drops below 0: a bullet reaching a bot that already died this beat is spent with no Hit (no hits on a corpse)
+seed: 1
+map: |
+  #######
+  #A.B.C#
+  #######
+start:
+  B: hp=1
+bots:
+  A: script fire E
+  C: script fire W
+beats: 1
+expect:
+  beat 1: Hit B W
+  beat 1: no Hit B E
+  beat 1: Killed A B
+  beat 1: no Killed C
+  final: B.hp 0

@@ -1,0 +1,19 @@
+name: bumping into a bot - the mover gets Bumped, the other nothing
+seed: 1
+map: |
+  ####
+  #AB#
+  ####
+bots:
+  A: script move E
+beats: 1
+expect:
+  beat 1: Bumped A E
+  beat 1: no Bumped B
+  beat 1: no Moved
+  final: A.x 1
+  final: B.x 2
+frame 1: |
+  ####
+  #AB#
+  ####

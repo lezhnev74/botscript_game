@@ -1,0 +1,20 @@
+name: bonus - at most 2 shots are stored (start is capped by bonus_max), so a long reload allows 1 + 2 shots, then clicks
+rules: reload=5
+seed: 1
+map: |
+  #######
+  #A....#
+  #######
+start:
+  A: bonus=2
+bots:
+  A: script fire E, fire E, fire E, fire E, fire E
+beats: 5
+expect:
+  beat 1: Fired A E
+  beat 2: Fired A E
+  beat 3: Fired A E
+  beat 4: Clicked A E
+  beat 5: Clicked A E
+  at beat 0: A.bonus 2
+  final: A.bonus 0

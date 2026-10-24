@@ -1,0 +1,13 @@
+name: scan - a bot never reads itself, and only the scanned direction counts
+seed: 1
+map: |
+  #####
+  #...#
+  #.A.#
+  #.B.#
+  #####
+bots:
+  A: script scan N
+beats: 1
+expect:
+  beat 1: Scanned A N 0 0 0

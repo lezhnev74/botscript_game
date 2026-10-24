@@ -1,0 +1,35 @@
+name: program - steps and path are -1 for a sealed-off pin and nearest() skips it
+seed: 1
+map: |
+  #######
+  #A..#.#
+  #...#.#
+  #######
+bots:
+  A: program |
+    function loop() {
+      pin[0] = at(5, 1);
+      pin[1] = at(3, 2);
+      pin[2] = at(0, 0);
+      num[0] = steps(pin[0]);
+      num[1] = path(pin[0]);
+      num[2] = nearest();
+      num[3] = steps(pin[2]);
+      num[4] = steps(pin[1]);
+      num[5] = path(here());
+      if (path(pin[0]) < 0) {
+        wait();
+      } else {
+        move(path(pin[0]));
+      }
+    }
+beats: 3
+expect:
+  at beat 1: A.num_0 -1          # pocket behind the wall
+  at beat 1: A.num_1 -1
+  at beat 1: A.num_2 1           # pin[0] unreachable, pin[2] is a wall: pin[1] is the nearest
+  at beat 1: A.num_3 -1          # a wall cell
+  at beat 1: A.num_4 3
+  at beat 1: A.num_5 -1          # my own cell
+  final: A.x 1                   # path was -1: the bot waited
+  final: A.y 1

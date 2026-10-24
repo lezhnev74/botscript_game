@@ -1,0 +1,15 @@
+name: scan - enemy outside the cone (behind or beside) reads level 0
+seed: 1
+map: |
+  #####
+  #A..#
+  #...#
+  #B..#
+  #####
+bots:
+  A: script scan E, scan S, scan N
+beats: 3
+expect:
+  beat 1: Scanned A E 0 0 0
+  beat 2: Scanned A S 3 0 0
+  beat 3: Scanned A N 0 0 0

@@ -1,0 +1,17 @@
+name: respawn - equally good spots (x=1 and x=5, both 2 from A) are chosen by the seeded RNG: seed 1 picks x=1
+rules: respawn_beats=1
+seed: 1
+map: |
+  #######
+  #..AB.#
+  #######
+start:
+  B: hp=1
+bots:
+  A: script fire E
+  B: script wait
+beats: 2
+expect:
+  beat 1: Killed A B
+  beat 2: Respawned B 1 1
+  final: B.x 1

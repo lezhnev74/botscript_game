@@ -1,0 +1,11 @@
+name: bullet - hit direction is where the bullet came from (shot flying west = from E)
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+bots:
+  B: script fire W
+beats: 1
+expect:
+  beat 1: Hit A E

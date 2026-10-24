@@ -1,0 +1,20 @@
+name: death - bullets fly through the cell of a dead bot and hit the next bot behind it
+rules: reload=1 bullet_speed=1
+seed: 1
+map: |
+  #######
+  #A.B.C#
+  #######
+start:
+  B: hp=1
+bots:
+  A: script fire E, wait, fire E
+  B: script wait
+  C: script wait
+beats: 6
+expect:
+  beat 2: Hit B W
+  beat 2: Killed A B
+  beat 6: Hit C W
+  beat 6: no Hit B
+  final: C.hp 3

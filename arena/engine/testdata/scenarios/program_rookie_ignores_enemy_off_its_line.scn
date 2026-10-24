@@ -1,0 +1,22 @@
+name: program - Rookie only fires at level 3; an enemy one lane off (level 2) is ignored
+seed: 1
+map: |
+  ########
+  #A.....#
+  #....B.#
+  ########
+bots:
+  A: program rookie
+  B: script wait
+beats: 6
+expect:
+  beat 1: no Fired
+  beat 2: no Fired
+  beat 2: Scanned A E 2 0 0     # one lane off: level 2, ignored
+  beat 3: no Fired
+  beat 4: no Fired
+  beat 4: Scanned A E 2 0 0     # one lane off: level 2, ignored
+  beat 5: no Fired
+  beat 6: no Fired
+  beat 6: Scanned A E 2 0 0     # one lane off: level 2, ignored
+  final: B.hp 4

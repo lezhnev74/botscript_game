@@ -1,0 +1,16 @@
+name: bonus - a stored bonus shot counts as loaded while reloading, an empty reloading gun does not
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+start:
+  A: cooldown=2 bonus=1
+  B: cooldown=2
+bots:
+  A: script wait
+  B: script wait
+beats: 1
+expect:
+  at beat 0: A.loaded 1
+  at beat 0: B.loaded 0

@@ -1,0 +1,15 @@
+name: bullet - stops at the first bot on its path, the bot behind is safe
+seed: 1
+map: |
+  #######
+  #A.BC.#
+  #######
+bots:
+  A: script fire E
+beats: 2
+expect:
+  beat 1: Hit B W
+  beat 1: no Hit C
+  beat 2: no Hit
+  final: B.hp 3
+  final: C.hp 4

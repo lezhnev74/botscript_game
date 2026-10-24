@@ -1,0 +1,29 @@
+name: reboot - a bot off the map cannot be hit, scanned or bumped, and its cell is free
+seed: 1
+map: |
+  #########
+  #A.....B#
+  #########
+bots:
+  A: program |
+    function loop() { wait(); }
+  B: program |
+    function loop() {
+      scan(W);
+      num[0] = enemy + 10;
+      fire(W);
+    }
+edits:
+  beat 1: A reboot 6 program |
+    function loop() { wait(); }
+beats: 4
+
+expect:
+  beat 2: Fired B W
+  beat 1: no Hit
+  beat 2: no Hit
+  beat 3: no Hit
+  beat 4: no Hit
+  at beat 3: B.num_0 10             # the scan sees nobody (enemy 0)
+  final: A.hp 4
+  final: A.alive 0

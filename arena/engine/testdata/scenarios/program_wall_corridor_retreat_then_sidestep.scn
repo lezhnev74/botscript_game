@@ -1,0 +1,36 @@
+name: program - wall() shows a corridor with both sides walled, so the bot retreats to a side opening and sidesteps next beat
+seed: 1
+map: |
+  ##############
+  ####.#########
+  #....A......B#
+  ##############
+bullets:
+  11,2,W,B
+bots:
+  A: program |
+    function loop() {
+      if (num[0] == 1) {
+        num[0] = 0;
+        if (wall(x, y - 1)) move(S); else move(N);
+        return;
+      }
+      scan(E);
+      if (bullet == 3) {
+        if (wall(x, y - 1) && wall(x, y + 1)) { num[0] = 1; move(W); }
+        else if (wall(x, y - 1)) move(S);
+        else move(N);
+      }
+    }
+  B: script wait
+beats: 4
+expect:
+  beat 1: Scanned A E 3 0 3
+  beat 2: Moved A
+  beat 2: no Hit
+  beat 3: Moved A
+  beat 3: no Hit
+  beat 4: no Hit
+  final: A.hp 4
+  final: A.x 4
+  final: A.y 1

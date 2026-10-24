@@ -1,0 +1,16 @@
+name: coin - every coin_every beats a coin appears on a random free cell while fewer than coin_max lie on the map
+rules: coin_every=2 coin_max=1
+seed: 1
+map: |
+  #####
+  #A..#
+  #...#
+  #####
+bots:
+  A: script wait
+beats: 4
+expect:
+  beat 1: no CoinSpawned
+  beat 2: CoinSpawned
+  beat 3: no CoinSpawned
+  beat 4: no CoinSpawned

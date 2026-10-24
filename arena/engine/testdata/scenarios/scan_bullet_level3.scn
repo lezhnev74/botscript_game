@@ -1,0 +1,18 @@
+name: scan - bullet level 3 (flying at me on my line)
+seed: 1
+map: |
+  #########
+  #.......#
+  #.......#
+  #A......#
+  #.......#
+  #.......#
+  #########
+bullets:
+  7,3,W
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 3
+  beat 1: no Hit

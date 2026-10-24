@@ -1,0 +1,3 @@
+{"beat":1,"type":"Moved","args":["A","E"]}
+{"beat":1,"type":"CoinTaken","args":["A","2","1"]}
+{"beat":2,"type":"CoinSpawned","args":["1","1"]}

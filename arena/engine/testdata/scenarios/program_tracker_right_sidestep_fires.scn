@@ -1,0 +1,24 @@
+name: program - Tracker sidesteps from an enemy at level 2, reads level 3 (right side) and fires at once
+seed: 1                         # with this seed the first pick(left, right) is E: the right side
+map: |
+  #######
+  #...B.#
+  #.....#
+  #.....#
+  #.....#
+  #..A..#
+  #######
+bots:
+  A: program tracker
+  B: script wait
+beats: 5
+expect:
+  beat 1: Scanned A N 2 0 0
+  beat 2: Moved A E
+  beat 3: Scanned A N 3 0 0
+  beat 4: Fired A N
+  beat 5: Hit B S
+  beat 4: no Moved A            # no crossing over
+  at beat 4: A.num_2 0
+  final: A.x 4
+  final: B.hp 3

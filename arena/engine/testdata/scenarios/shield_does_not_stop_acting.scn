@@ -1,0 +1,18 @@
+name: shield - a shielded bot still moves, scans and fires (the shield only absorbs bullets)
+seed: 1
+map: |
+  #######
+  #A...B#
+  #######
+start:
+  B: shield=2
+bots:
+  A: script wait
+  B: script scan W, move W, fire W
+beats: 3
+expect:
+  beat 1: Scanned B W 3 0 0
+  beat 2: Moved B W
+  beat 3: Fired B W
+  beat 3: Hit A E
+  final: A.hp 3

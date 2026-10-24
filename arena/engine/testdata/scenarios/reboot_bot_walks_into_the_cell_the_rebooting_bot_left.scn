@@ -1,0 +1,28 @@
+name: reboot - another bot walks into the cell a rebooting bot left, no Bumped, no Hit
+seed: 1
+map: |
+  #######
+  #A.C..#
+  #######
+bots:
+  A: program |
+    function loop() { wait(); }
+  C: script move W, move W, fire W, fire W
+edits:
+  beat 1: A reboot 6 program |
+    function loop() { wait(); }
+beats: 4
+expect:
+  beat 1: Moved C W
+  beat 2: Moved C W
+  at beat 2: C.x 1
+  beat 3: Fired C W
+  beat 3: no Hit
+  beat 4: no Hit
+  beat 1: no Bumped
+  beat 2: no Bumped
+  beat 3: no Bumped
+  beat 4: no Bumped
+  final: A.hp 4
+  final: A.alive 0
+  final: C.hp 4

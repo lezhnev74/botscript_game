@@ -1,0 +1,13 @@
+name: scan - coin on my line reads level 3
+seed: 1
+map: |
+  #####
+  #...#
+  #A.$#
+  #...#
+  #####
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 0 3 0

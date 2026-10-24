@@ -1,0 +1,14 @@
+name: hear - with two shots in one beat the nearest shooter is heard: B is 3 cells away, C is 2, so C's cell is heard
+seed: 1
+map: |
+  #########
+  #B..A.C.#
+  #########
+bots:
+  B: script fire N
+  C: script fire N
+beats: 1
+expect:
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 6
+  at beat 1: A.heard_y 1

@@ -1,0 +1,17 @@
+name: program - Tracker tracking into a wall turns first (wall()), it does not walk into it
+seed: 1
+map: |
+  #######
+  #A....#
+  #.....#
+  #....B#
+  #######
+bots:
+  A: program tracker
+  B: script wait
+beats: 2
+expect:
+  beat 1: Scanned A E
+  beat 1: no Bumped
+  at beat 1: A.num_0 1
+  final: A.hp 4

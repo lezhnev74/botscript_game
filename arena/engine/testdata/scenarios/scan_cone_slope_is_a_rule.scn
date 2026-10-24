@@ -1,0 +1,16 @@
+name: scan - the cone width comes from the rules (cone_slope=50 drops a bot 2 along and 2 off that the default wedge reads at level 1)
+rules: cone_slope=50
+seed: 1
+map: |
+  #######
+  #A....#
+  #.....#
+  #..B..#
+  #.....#
+  #######
+bots:
+  A: script scan E
+  B: script wait
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 0

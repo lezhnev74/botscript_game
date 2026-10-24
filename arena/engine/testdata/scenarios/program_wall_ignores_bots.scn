@@ -1,0 +1,20 @@
+name: program - wall() on a floor cell with a bot on it is not a wall; walls and cells outside the arena are
+seed: 1
+map: |
+  #####
+  #AB.#
+  #####
+bots:
+  A: program |
+    function loop() {
+      num[0] = wall(x + 1, y);
+      num[1] = wall(x, y - 1);
+      num[2] = wall(0 - 1, y);
+      wait();
+    }
+  B: script wait
+beats: 1
+expect:
+  final: A.num_0 0
+  final: A.num_1 1
+  final: A.num_2 1

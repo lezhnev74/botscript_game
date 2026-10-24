@@ -1,0 +1,13 @@
+{"beat":1,"type":"Moved","args":["A","E"]}
+{"beat":2,"type":"Scanned","args":["A","E","0","3","0"],"data":{"cells":[{"x":3,"y":1},{"x":4,"y":1},{"x":5,"y":1},{"x":6,"y":1},{"x":7,"y":1},{"x":8,"y":1},{"x":9,"y":1}],"seen":[{"kind":"coin","x":6,"y":1,"level":3}]}}
+{"beat":3,"type":"Moved","args":["A","E"]}
+{"beat":4,"type":"Scanned","args":["A","E","0","3","0"],"data":{"cells":[{"x":4,"y":1},{"x":5,"y":1},{"x":6,"y":1},{"x":7,"y":1},{"x":8,"y":1},{"x":9,"y":1}],"seen":[{"kind":"coin","x":6,"y":1,"level":3}]}}
+{"beat":5,"type":"Moved","args":["A","E"]}
+{"beat":6,"type":"Scanned","args":["A","E","0","3","0"],"data":{"cells":[{"x":5,"y":1},{"x":6,"y":1},{"x":7,"y":1},{"x":8,"y":1},{"x":9,"y":1}],"seen":[{"kind":"coin","x":6,"y":1,"level":3}]}}
+{"beat":7,"type":"Moved","args":["A","E"]}
+{"beat":8,"type":"Scanned","args":["A","E","0","3","0"],"data":{"cells":[{"x":6,"y":1},{"x":7,"y":1},{"x":8,"y":1},{"x":9,"y":1}],"seen":[{"kind":"coin","x":6,"y":1,"level":3}]}}
+{"beat":9,"type":"Moved","args":["A","E"]}
+{"beat":9,"type":"CoinTaken","args":["A","6","1"]}
+{"beat":10,"type":"Scanned","args":["A","E","0","0","0"],"data":{"cells":[{"x":7,"y":1},{"x":8,"y":1},{"x":9,"y":1}],"seen":[]}}
+{"beat":11,"type":"Moved","args":["A","E"]}
+{"beat":12,"type":"Scanned","args":["A","S","0","0","0"],"data":{"cells":[],"seen":[]}}

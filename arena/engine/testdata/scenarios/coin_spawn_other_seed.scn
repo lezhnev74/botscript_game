@@ -1,0 +1,13 @@
+name: coin - the spawn cell depends on the seed (compare the golden with coin_spawn_seeded)
+rules: coin_every=2 coin_max=1
+seed: 2
+map: |
+  #####
+  #A..#
+  #...#
+  #####
+bots:
+  A: script wait
+beats: 2
+expect:
+  beat 2: CoinSpawned

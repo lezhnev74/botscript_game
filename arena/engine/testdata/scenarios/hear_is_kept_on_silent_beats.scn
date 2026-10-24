@@ -1,0 +1,22 @@
+name: hear - heard is kept on silent beats
+seed: 1
+map: |
+  #######
+  #A...B#
+  #######
+bots:
+  B: script fire N, wait, wait, wait
+beats: 4
+expect:
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 5
+  at beat 1: A.heard_y 1
+  at beat 2: A.heard_set 1
+  at beat 2: A.heard_x 5
+  at beat 2: A.heard_y 1
+  at beat 3: A.heard_set 1
+  at beat 3: A.heard_x 5
+  at beat 3: A.heard_y 1
+  at beat 4: A.heard_set 1
+  at beat 4: A.heard_x 5
+  at beat 4: A.heard_y 1

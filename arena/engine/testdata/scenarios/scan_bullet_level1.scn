@@ -1,0 +1,18 @@
+name: scan - bullet level 1 (flying at me elsewhere in the cone)
+seed: 1
+map: |
+  #########
+  #.......#
+  #.......#
+  #A......#
+  #.......#
+  #.......#
+  #########
+bullets:
+  7,1,W
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 1
+  beat 1: no Hit

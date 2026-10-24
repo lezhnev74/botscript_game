@@ -1,0 +1,4 @@
+{"beat":1,"type":"Scanned","args":["A","E","3","0","3"],"data":{"cells":[{"x":6,"y":2},{"x":7,"y":2},{"x":8,"y":2},{"x":9,"y":2},{"x":10,"y":2},{"x":11,"y":2},{"x":12,"y":2}],"seen":[{"kind":"enemy","x":12,"y":2,"level":3},{"kind":"bullet","x":8,"y":2,"level":3}]}}
+{"beat":2,"type":"Moved","args":["A","W"]}
+{"beat":3,"type":"Moved","args":["A","N"]}
+{"beat":4,"type":"Scanned","args":["A","E","0","0","0"],"data":{"cells":[{"x":5,"y":2}],"seen":[]}}

@@ -1,0 +1,23 @@
+name: death - the hit that takes the last HP kills: Killed <killer> <victim>, the victim leaves the grid
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+start:
+  B: hp=1
+bots:
+  A: script fire E
+  B: script wait
+beats: 1
+expect:
+  beat 1: Fired A E
+  beat 1: Hit B W
+  beat 1: Killed A B
+  final: B.alive 0
+  final: B.hp 0
+  final: A.alive 1
+frame 1: |
+  #####
+  #A..#
+  #####

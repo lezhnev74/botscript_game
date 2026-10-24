@@ -1,0 +1,16 @@
+name: defaults - hear_range is 6 (Manhattan): a shot 6 cells away is heard, 7 cells away is not
+seed: 1
+map: |
+  #################
+  #.A.....B......C#
+  #################
+bots:
+  B: script fire N
+beats: 1
+expect:
+  at beat 1: A.heard_set 1
+  at beat 1: A.heard_x 8
+  at beat 1: A.heard_y 1
+  at beat 1: C.heard_set 0
+  at beat 1: C.heard_x -1
+  at beat 1: C.heard_y -1

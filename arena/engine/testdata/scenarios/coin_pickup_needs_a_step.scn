@@ -1,0 +1,20 @@
+name: coin - a bot that does not step onto the coin leaves it on the map
+rules: coin_every=0
+seed: 1
+map: |
+  #####
+  #A$.#
+  #.#.#
+  #####
+bots:
+  A: script move S, wait
+beats: 2
+expect:
+  beat 1: no CoinTaken
+  beat 2: no CoinTaken
+  final: A.bonus 0
+frame 2: |
+  #####
+  #.$.#
+  #A#.#
+  #####

@@ -1,0 +1,35 @@
+name: program - a bot pins its start cell, walks away and comes back by comparing here() with the pin
+seed: 1
+map: |
+  ######
+  #A...#
+  ######
+bots:
+  A: program |
+    function loop() {
+      if (pin[0] == none) { pin[0] = here(); }
+      if (num[0] < 2) {
+        num[0]++;
+        move(E);
+      } else if (here() != pin[0]) {
+        move(W);
+      } else {
+        num[1] = 1;
+        wait();
+      }
+    }
+beats: 6
+expect:
+  at beat 1: A.pin_0_set 1
+  at beat 1: A.pin_0_x 1
+  at beat 1: A.pin_0_y 1
+  at beat 1: A.pin_1_set 0       # the other pins stay empty
+  at beat 1: A.pin_1_x -1
+  at beat 2: A.x 3               # walked away
+  at beat 3: A.num_1 0           # here() != pin[0]: still walking back
+  at beat 4: A.x 1
+  at beat 4: A.num_1 0
+  at beat 5: A.num_1 1           # back on the pinned cell: here() == pin[0]
+  final: A.x 1
+  final: A.pin_0_x 1
+  final: A.num_1 1

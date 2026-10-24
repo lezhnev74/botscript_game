@@ -1,0 +1,19 @@
+name: program - Lighthouse retreat in a corridor with the bullet one cell too close: still hit
+seed: 1
+map: |
+  ##############
+  ####.#########
+  #....A......B#
+  ##############
+bullets:
+  9,2,W,B
+bots:
+  A: program lighthouse
+  B: script wait
+beats: 4
+expect:
+  beat 1: Scanned A E 3 0 3
+  beat 2: Moved A W
+  beat 2: Hit A E
+  final: A.hp 3
+  final: A.y 1

@@ -1,0 +1,19 @@
+name: bullet - a bot that steps into the cell of a bullet in flight is hit (no slipping past)
+seed: 1
+map: |
+  #########
+  #A...B..#
+  #########
+bullets:
+  4,1,E,A
+bots:
+  B: script move W
+beats: 1
+expect:
+  beat 1: Moved B W
+  beat 1: Hit B W
+  final: B.hp 3
+frame 0: |
+  #########
+  #A..*B..#
+  #########

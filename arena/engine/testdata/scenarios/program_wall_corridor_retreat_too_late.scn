@@ -1,0 +1,31 @@
+name: program - the same corridor retreat with the bullet one beat too close: the retreat runs into it
+seed: 1
+map: |
+  ##############
+  ####.#########
+  #....A......B#
+  ##############
+bullets:
+  10,2,W,B
+bots:
+  A: program |
+    function loop() {
+      if (num[0] == 1) {
+        num[0] = 0;
+        if (wall(x, y - 1)) move(S); else move(N);
+        return;
+      }
+      scan(E);
+      if (bullet == 3) {
+        if (wall(x, y - 1) && wall(x, y + 1)) { num[0] = 1; move(W); }
+        else if (wall(x, y - 1)) move(S);
+        else move(N);
+      }
+    }
+  B: script wait
+beats: 3
+expect:
+  beat 1: Scanned A E 3 0 3
+  beat 2: Moved A
+  beat 2: Hit A E
+  final: A.hp 3

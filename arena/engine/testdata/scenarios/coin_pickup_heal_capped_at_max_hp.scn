@@ -1,0 +1,14 @@
+name: coin - healing never goes above max HP (the hp rule)
+rules: coin_every=0
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+bots:
+  A: script move E
+beats: 1
+expect:
+  beat 1: CoinTaken A 2 1
+  at beat 0: A.hp 4
+  final: A.hp 4

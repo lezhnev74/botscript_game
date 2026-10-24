@@ -1,0 +1,5 @@
+{"beat":50,"type":"CoinSpawned","args":["1","2"]}
+{"beat":100,"type":"CoinSpawned","args":["3","2"]}
+{"beat":150,"type":"CoinSpawned","args":["2","1"]}
+{"beat":200,"type":"CoinSpawned","args":["5","2"]}
+{"beat":250,"type":"CoinSpawned","args":["6","1"]}

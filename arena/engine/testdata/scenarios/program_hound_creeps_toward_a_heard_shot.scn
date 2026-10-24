@@ -1,0 +1,22 @@
+name: program - Hound hears a shot, then alternates a look and a step toward it
+rules: coin_every=0
+seed: 1
+map: |
+  #########
+  #A......#
+  #.......#
+  #....B..#
+  #########
+bots:
+  A: program hound
+  B: script fire N, fire N, fire N
+beats: 5
+expect:
+  beat 1: Fired B N
+  at beat 1: A.heard_x 5           # B is east of A (4 across, 2 down); the hound's beat-1 action was a scan; it hears the shot this beat
+  at beat 1: A.heard_y 3
+  beat 2: Scanned A E 1 0 0      # a look toward the sound first
+  beat 3: Moved A E              # then a step toward it
+  beat 4: Scanned A E 1 0 0      # look again
+  beat 5: Scanned A S 0 0 0      # no new shot (B only clicks): back to the all-round look, E then S
+  final: A.x 2

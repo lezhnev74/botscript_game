@@ -1,0 +1,18 @@
+name: scan - bullet level 0 (flying away on my line is not a threat)
+seed: 1
+map: |
+  #########
+  #.......#
+  #.......#
+  #A......#
+  #.......#
+  #.......#
+  #########
+bullets:
+  7,3,E
+bots:
+  A: script scan E
+beats: 1
+expect:
+  beat 1: Scanned A E 0 0 0
+  beat 1: no Hit

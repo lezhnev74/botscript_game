@@ -1,0 +1,18 @@
+name: program - Hound scans on arrival, pins the cell where it saw an enemy and fires when loaded
+rules: coin_every=0
+seed: 1
+map: |
+  #########
+  #...A..B#
+  #########
+bots:
+  A: program hound
+  B: script wait
+beats: 3
+expect:
+  beat 1: Scanned A E 3 0 0
+  at beat 2: A.pin_0_set 1       # pinned the cell where it stands when it saw the enemy
+  at beat 2: A.pin_0_x 4
+  at beat 2: A.pin_0_y 1
+  beat 2: Fired A E
+  beat 3: Scanned A S 0 0 0      # then on with the look-around: the next direction

@@ -1,0 +1,26 @@
+name: bullet - a distant target that reads the bullet on the shot beat steps aside next beat
+seed: 1
+map: |
+  ###########
+  #A.......B#
+  #.........#
+  ###########
+bots:
+  A: script fire E
+  B: script scan W, move S
+beats: 2
+expect:
+  beat 1: Scanned B W 3 0 3     # the scan runs after the bullet flew 3 cells: it is in the air at x=4, flying at B
+  beat 2: Moved B S
+  beat 2: no Hit
+  final: B.hp 4
+frame 1: |
+  ###########
+  #A..*....B#
+  #.........#
+  ###########
+frame 2: |
+  ###########
+  #A.....*..#
+  #........B#
+  ###########

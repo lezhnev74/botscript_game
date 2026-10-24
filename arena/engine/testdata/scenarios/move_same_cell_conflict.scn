@@ -1,0 +1,18 @@
+name: two bots into the same free cell - both fail and bump
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+bots:
+  A: script move E
+  B: script move W
+beats: 1
+expect:
+  beat 1: Bumped A E
+  beat 1: Bumped B W
+  beat 1: no Moved
+frame 1: |
+  #####
+  #A.B#
+  #####

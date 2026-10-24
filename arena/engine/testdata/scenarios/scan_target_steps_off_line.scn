@@ -1,0 +1,14 @@
+name: scan - a target that steps off the line this beat is read at its new lane
+seed: 1
+map: |
+  #####
+  #A.B#
+  #...#
+  #####
+bots:
+  A: script scan E
+  B: script move S
+beats: 1
+expect:
+  beat 1: Moved B S
+  beat 1: Scanned A E 2 0 0

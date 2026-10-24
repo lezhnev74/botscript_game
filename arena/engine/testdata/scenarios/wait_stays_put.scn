@@ -1,0 +1,27 @@
+name: bots that wait stay put
+rules: default
+seed: 1
+map: |
+  #######
+  #A...B#
+  #.....#
+  #######
+bots:
+  A: script wait, wait, wait
+  # B has no script: it waits forever
+beats: 3
+expect:
+  beat 1: no Moved
+  beat 2: no Moved
+  beat 3: no Moved
+  at beat 0: A.x 1
+  final: A.x 1
+  final: A.y 1
+  final: B.x 5
+  final: B.y 1
+  final: A.hp 4
+frame 3: |
+  #######
+  #A...B#
+  #.....#
+  #######

@@ -1,0 +1,25 @@
+name: program - an edit at beat N acts on beat N; two edits on one beat apply in file order
+seed: 1
+map: |
+  #######
+  #A...B#
+  #######
+bots:
+  A: program |
+    function loop() { wait(); }
+  B: script wait
+edits:
+  beat 2: A program |
+    function loop() { move(E); }
+  beat 3: A program |
+    function loop() { fire(E); }
+  beat 3: A program |
+    function loop() { move(E); }
+beats: 4
+expect:
+  beat 1: no Moved A
+  beat 2: Moved A E
+  beat 3: Moved A E
+  beat 4: Moved A E             # the second edit of beat 3 won (move, not fire)
+  final: A.x 4
+  beat 3: no Fired A

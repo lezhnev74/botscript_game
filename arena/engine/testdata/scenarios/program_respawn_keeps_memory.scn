@@ -1,0 +1,26 @@
+name: program - a respawn starts a fresh loop() but keeps the memory cells
+seed: 1
+map: |
+  #########
+  #A..B...#
+  #########
+start:
+  A: hp=1
+bots:
+  A: program |
+    function loop() {
+      num[0]++;
+      num[5] += 10;
+      wait();
+    }
+  B: script fire W
+beats: 8
+expect:
+  beat 1: Killed B A
+  at beat 1: A.num_0 1
+  at beat 1: A.num_5 10
+  at beat 3: A.num_0 1          # dead: the code does not run, nothing changes
+  at beat 6: A.alive 1
+  at beat 7: A.num_0 2          # kept, then a fresh loop() at beat 7
+  final: A.num_0 3
+  final: A.num_5 30

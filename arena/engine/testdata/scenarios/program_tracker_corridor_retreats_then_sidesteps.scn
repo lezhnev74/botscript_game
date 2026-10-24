@@ -1,0 +1,30 @@
+name: program - Tracker in a walled corridor sees bullet 3, backs off along the line (num[2] = 2) and sidesteps the next beat
+seed: 1
+map: |
+  ####B####
+  ####.####
+  ####.####
+  ####.####
+  ####.####
+  ####.####
+  ####.####
+  ####A####
+  ###...###
+  #########
+bullets:
+  4,1,S,B
+bots:
+  A: program tracker
+  B: script wait
+beats: 4
+expect:
+  beat 1: Scanned A N 3 0 3
+  beat 2: Moved A S
+  beat 2: no Hit
+  at beat 2: A.num_2 2         # sidestep pending
+  beat 3: Moved A
+  beat 3: no Hit
+  beat 4: no Hit
+  final: A.hp 4
+  final: A.y 8
+  final: A.num_2 0

@@ -1,0 +1,18 @@
+name: fire - with nothing loaded the beat is wasted (Clicked, no bullet) but the reload keeps counting
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+start:
+  A: cooldown=3
+bots:
+  A: script fire E, fire E
+beats: 2
+expect:
+  beat 1: Clicked A E
+  beat 1: no Fired
+  beat 2: Clicked A E
+  at beat 1: A.cooldown 2
+  at beat 2: A.cooldown 1
+  final: B.hp 4

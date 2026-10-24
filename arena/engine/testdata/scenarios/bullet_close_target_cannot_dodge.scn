@@ -1,0 +1,16 @@
+name: bullet - a target within bullet_speed cells is hit on the shot beat, its scan does not read the spent bullet
+seed: 1
+map: |
+  ###########
+  #A..B.....#
+  #.........#
+  ###########
+bots:
+  A: script fire E
+  B: script scan W, move S
+beats: 2
+expect:
+  beat 1: Scanned B W 3 0 0
+  beat 1: Hit B W
+  beat 2: Moved B S
+  final: B.hp 3

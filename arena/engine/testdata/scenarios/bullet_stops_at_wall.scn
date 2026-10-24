@@ -1,0 +1,19 @@
+name: bullet - a wall stops it within the beat, a bot behind the wall on the firing row is safe
+seed: 1
+map: |
+  ########
+  #A.#.B.#
+  ########
+bots:
+  A: script fire E
+beats: 3
+expect:
+  beat 1: Fired A E
+  beat 1: no Hit
+  beat 2: no Hit
+  beat 3: no Hit
+  final: B.hp 4
+frame 1: |                # the wall at x=3 ate it; nothing flies on
+  ########
+  #A.#.B.#
+  ########

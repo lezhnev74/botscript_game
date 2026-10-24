@@ -1,0 +1,31 @@
+name: program - num[0..7] are eight independent cells; a computed index outside 0..7 reads 0 and writes nothing
+seed: 1
+map: |
+  #####
+  #AB.#
+  #####
+bots:
+  A: program |
+    function loop() {
+      for (num[0] = 0; num[0] < 8; num[0]++) {
+        num[num[0]] = 0;
+      }
+      num[3] = 30;
+      num[7] = 70;
+      num[1] = num[3 + 5];
+      num[6] = 0 - 1;
+      num[num[6]] = 99;
+      num[num[3] - 21] = 5;
+      wait();
+    }
+  B: script wait
+beats: 1
+expect:
+  final: A.num_0 8      # the loop counter
+  final: A.num_1 0
+  final: A.num_2 0
+  final: A.num_3 30
+  final: A.num_4 0
+  final: A.num_5 0
+  final: A.num_6 -1
+  final: A.num_7 70

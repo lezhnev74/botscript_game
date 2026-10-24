@@ -1,0 +1,20 @@
+name: coin - at bonus_max the coin is still consumed (it is +1 score too) but the bonus stays capped
+rules: coin_every=0
+seed: 1
+map: |
+  #####
+  #A$.#
+  #####
+start:
+  A: bonus=2
+bots:
+  A: script move E
+beats: 1
+expect:
+  beat 1: CoinTaken A 2 1
+  at beat 0: A.bonus 2
+  final: A.bonus 2
+frame 1: |
+  #####
+  #.A.#
+  #####

@@ -1,0 +1,19 @@
+name: death - walking into your own bullet can kill you: Killed credits the victim itself
+seed: 1
+map: |
+  #####
+  #A.B#
+  #####
+start:
+  B: hp=1
+bullets:
+  2,1,E,B
+bots:
+  A: script wait
+  B: script move W
+beats: 1
+expect:
+  beat 1: Moved B W
+  beat 1: Hit B W
+  beat 1: Killed B B
+  final: B.alive 0
