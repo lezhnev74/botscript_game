@@ -78,7 +78,7 @@ type Brain interface {
 - This split is what makes the engine testable without the language, and the language testable without the arena.
 
 **Language.** goja parser -> validator (whitelist from LANGUAGE.md section 8, call graph check for recursion,
-depth <= 3, 120 lines) -> tree-walking interpreter with op counting and integer clamping. Execution model: the
+depth <= 3, 1000 lines) -> tree-walking interpreter with op counting and integer clamping. Execution model: the
 interpreter runs as a **resumable stepper** (one goroutine per bot, but lockstep: the orchestrator gives it a budget
 of 100000 ops and waits until it either queues an action or spends the budget). No wall clock is involved, so the
 result is the same on any machine. Interrupts unwind via a sentinel panic, as in the spec.
@@ -187,7 +187,7 @@ frame 1: |                # optional ASCII snapshot after beat 1
 - **Check (public):** `POST /api/check` (raw program as body) and `GET /api/check?src=...` -> `{ok:false, errors:[{line,
   col, message, hint}]}` or `{ok:true, trial:{beats, deadBeats, actions{scan,move,fire,wait}, idle, noAction, clicks,
   hitsTaken, hits, kills, deaths, coins, warnings[]}}` (`app.Check`: validation, then a 100-beat trial in
-  a small fixed 9x7 trial room against hound, forager and tracker, fixed seed, no clock, no live arena); 16 KB limit (413 for the body, 400 for
+  a small fixed 9x7 trial room against hound, forager and tracker, fixed seed, no clock, no live arena); 64 KB limit (413 for the body, 400 for
   `src`), 30 per minute per remote IP then 429 (own limiter type, injectable clock, bounded table). `GET /api/config`
   -> `{baseUrl}` from env `ARENA_BASE_URL` (trailing slash trimmed, `""` when unset). The rulebook ("Check your
   program" section) uses it, else `location.origin`.
@@ -228,3 +228,4 @@ frame 1: |                # optional ASCII snapshot after beat 1
 
 New work is added here as `### Step N - title` (scope, rules touched, tests first), implemented per `CLAUDE.md`, and
 removed once committed. Completed steps live in git history.
+

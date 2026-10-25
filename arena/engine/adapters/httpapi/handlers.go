@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	maxSourceBytes = 64 << 10
+	maxSourceBytes = 64 << 10 // a program: save body, /api/check body or src parameter
 	maxJoinBytes   = 1 << 10
 )
 

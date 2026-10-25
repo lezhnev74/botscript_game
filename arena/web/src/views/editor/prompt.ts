@@ -75,7 +75,7 @@ retry; follow the spec by hand and write a program that passes every check you c
 - POST ${base}/api/check - the program as the raw request body.
 - GET ${base}/api/check?src=<URL-encoded program> - the same, for tools that can only fetch URLs.
 
-At most 16 KB. The answer is JSON:
+At most 64 KB. The answer is JSON:
 
 - \`{"ok": false, "errors": [{"line": 3, "col": 5, "message": "...", "hint": "..."}]}\` - the hint says what to write.
 - \`{"ok": true, "trial": {...}}\` - valid; it also played a 100-beat trial against 3 house bots. \`trial\` has

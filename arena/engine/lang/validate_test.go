@@ -240,7 +240,7 @@ func TestRejectedPrograms(t *testing.T) {
 		{"depth 4", "function loop() {\n  f1();\n}\nfunction f1() {\n  f2();\n}\nfunction f2() {\n  f3();\n}\nfunction f3() {\n  wait();\n}\n", 8, 3, "depth", "merge"},
 		{"depth 4 from handler", "function loop() {}\nfunction onBump(d) {\n  f1();\n}\nfunction f1() {\n  f2();\n}\nfunction f2() {\n  f3();\n}\nfunction f3() {}\n", 9, 3, "depth", "merge"},
 		{"depth 4 via second path", "function loop() {\n  f1();\n  f3();\n}\nfunction f1() {\n  f2();\n}\nfunction f2() {\n  f3();\n}\nfunction f3() {}\n", 9, 3, "depth", "merge"},
-		{"121 lines", loopOfLines(121), 121, 1, "120", "shorter"},
+		{"1001 lines", loopOfLines(1001), 1001, 1, "1000", "shorter"},
 	}
 	runRejected(t, rows)
 }
@@ -292,15 +292,21 @@ func TestMethodHintGenericForUnknownMethod(t *testing.T) {
 	}
 }
 
+func TestLineLimitIs1000(t *testing.T) {
+	if lang.MaxLines != 1000 {
+		t.Fatalf("MaxLines = %d", lang.MaxLines)
+	}
+}
+
 func TestLineLimitBoundary(t *testing.T) {
-	if _, errs := lang.Validate(loopOfLines(120)); len(errs) != 0 {
-		t.Fatalf("120 lines must pass: %v", errs)
+	if _, errs := lang.Validate(loopOfLines(lang.MaxLines)); len(errs) != 0 {
+		t.Fatalf("max lines must pass: %v", errs)
 	}
-	if _, errs := lang.Validate(strings.TrimSuffix(loopOfLines(120), "\n")); len(errs) != 0 {
-		t.Fatalf("120 lines without trailing newline must pass: %v", errs)
+	if _, errs := lang.Validate(strings.TrimSuffix(loopOfLines(lang.MaxLines), "\n")); len(errs) != 0 {
+		t.Fatalf("max lines without trailing newline must pass: %v", errs)
 	}
-	if _, errs := lang.Validate(strings.ReplaceAll(loopOfLines(120), "\n", "\r\n")); len(errs) != 0 {
-		t.Fatalf("120 CRLF lines must pass: %v", errs)
+	if _, errs := lang.Validate(strings.ReplaceAll(loopOfLines(lang.MaxLines), "\n", "\r\n")); len(errs) != 0 {
+		t.Fatalf("max CRLF lines must pass: %v", errs)
 	}
 }
 

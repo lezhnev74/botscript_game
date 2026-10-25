@@ -38,7 +38,7 @@ client address from its `X-Forwarded-For` (the rightmost entry that is not a tru
 ## Program check for AI
 
 `POST /api/check` takes a BOTSCRIPT program as the raw body, `GET /api/check?src=<url-encoded program>` takes it as a
-parameter (for chat tools that can only fetch URLs). No token needed; 16 KB at most; 30 requests per minute per IP,
+parameter (for chat tools that can only fetch URLs). No token needed; 64 KB at most; 30 requests per minute per IP,
 then 429 (every request counts, also the ones answered 400 or 413; at most 4 trials run at once, more get 503 with
 `Retry-After: 1`). The answer is JSON: `{"ok": false, "errors": [{line, col, message, hint}]}` for an invalid program, or
 `{"ok": true, "trial": {...}}` for a valid one. The trial plays 100 beats of the program against three house bots in the

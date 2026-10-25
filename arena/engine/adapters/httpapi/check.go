@@ -14,8 +14,7 @@ import (
 )
 
 const (
-	maxCheckBytes = 16 << 10 // a program sent to /api/check, as body or as the src parameter
-	checkLimit    = 30       // requests per remote host per window
+	checkLimit    = 30 // requests per remote host per window
 	checkWindow   = time.Minute
 	maxCheckHosts = 1024
 	maxTrials     = 4 // checks running at once, over all hosts
@@ -141,11 +140,11 @@ func programOf(w http.ResponseWriter, r *http.Request) (src string, status int, 
 	if r.Method == http.MethodGet {
 		return programParam(r.URL.Query())
 	}
-	b, err := io.ReadAll(http.MaxBytesReader(w, r.Body, maxCheckBytes))
+	b, err := io.ReadAll(http.MaxBytesReader(w, r.Body, maxSourceBytes))
 	var tooBig *http.MaxBytesError
 	switch {
 	case errors.As(err, &tooBig):
-		return "", http.StatusRequestEntityTooLarge, "program is too large (16 KB at most)"
+		return "", http.StatusRequestEntityTooLarge, "program is too large (64 KB at most)"
 	case err != nil:
 		return "", http.StatusBadRequest, "could not read the request body"
 	}
@@ -157,8 +156,8 @@ func programParam(q url.Values) (string, int, string) {
 		return "", http.StatusBadRequest, "pass the program as ?src=<url-encoded program> or POST it as the body"
 	}
 	src := q.Get("src")
-	if len(src) > maxCheckBytes {
-		return "", http.StatusBadRequest, "program is too large (16 KB at most)"
+	if len(src) > maxSourceBytes {
+		return "", http.StatusBadRequest, "program is too large (64 KB at most)"
 	}
 	return src, 0, ""
 }

@@ -34,6 +34,10 @@ describe("buildPrompt", () => {
     expect(req).toMatch(/single code block/i);
     expect(text.trimEnd().endsWith(req.trimEnd())).toBe(true);
   });
+  it("states the 64 KB program limit", () => {
+    expect(text).toContain("At most 64 KB.");
+    expect(text).not.toContain("16 KB");
+  });
   it("has no wish section and no long dashes", () => {
     expect(text).not.toMatch(/What I want/);
     expect(text).not.toMatch(/[—–]/);

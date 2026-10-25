@@ -110,7 +110,7 @@ nearest()                     // index of the set pin with the fewest steps, -1 
 
 `if/else`, `while`, `for`, `break`, `continue`, `return`, `? :`, `&& || !`, `+ - * / %` (integer division),
 `== != < <= > >=`, assignment `= += -= ++ --` (`num[i]`; `pin[i]` takes `=` only), member reads on `trail[i]` and `.x` / `.y` of a place, `function` declarations,
-`//` comments. Anything else is a parse error with a hint. Limit: 120 lines.
+`//` comments. Anything else is a parse error with a hint. Limit: 1000 lines.
 
 ## 9. Bots
 

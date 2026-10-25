@@ -2,6 +2,7 @@ package lang
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/dop251/goja/ast"
@@ -17,8 +18,8 @@ func Validate(src string) (*Program, []Error) {
 	var errs []Error
 	if p.Lines > MaxLines {
 		errs = append(errs, Error{Line: MaxLines + 1, Col: 1,
-			Msg:  "the program is longer than 120 lines",
-			Hint: "make it shorter: at most 120 lines, remove blank lines, comments or repeated code"})
+			Msg:  fmt.Sprintf("the program is longer than %d lines", MaxLines),
+			Hint: fmt.Sprintf("make it shorter: at most %d lines, remove blank lines, comments or repeated code", MaxLines)})
 	}
 	tree, perr := parser.ParseFile(p.fset, "", src, 0, parser.WithDisableSourceMaps)
 	if perr != nil {

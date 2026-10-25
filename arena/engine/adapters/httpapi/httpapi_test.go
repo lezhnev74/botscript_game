@@ -554,7 +554,7 @@ func TestCheckPlaysATrialOfAGoodProgramByPostAndGet(t *testing.T) {
 
 func TestCheckRejectsMissingAndOversizedPrograms(t *testing.T) {
 	r := newRig(t, checkOpts())
-	big := strings.Repeat("x", 16<<10+1)
+	big := strings.Repeat("x", 64<<10+1)
 	for name, c := range map[string]struct {
 		method, path, body string
 		want               int
@@ -562,7 +562,7 @@ func TestCheckRejectsMissingAndOversizedPrograms(t *testing.T) {
 		"get without src":   {"GET", "/api/check", "", 400},
 		"get too large":     {"GET", "/api/check?src=" + big, "", 400},
 		"post too large":    {"POST", "/api/check", big, 413},
-		"post at the limit": {"POST", "/api/check", strings.Repeat("x", 16<<10), 200},
+		"post at the limit": {"POST", "/api/check", strings.Repeat("x", 64<<10), 200},
 		"other method":      {"PUT", "/api/check", "x", 405},
 	} {
 		if code, body, _ := r.call(t, c.method, c.path, "", c.body); code != c.want {

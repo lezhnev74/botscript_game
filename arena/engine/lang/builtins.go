@@ -6,7 +6,7 @@ import (
 )
 
 // MaxLines is the program size limit (LANGUAGE.md section 8).
-const MaxLines = 120
+const MaxLines = 1000
 
 // MaxCallDepth is the deepest allowed chain of user functions, counting the
 // entry point (loop -> helper -> helper is 3).
